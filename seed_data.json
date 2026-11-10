@@ -1,4 +1,29 @@
 {
+  "version": "1.0.1",
+  "metadata": {
+    "name": "FormosaLingua — Dictionary IAC (Infrastructure as Content)",
+    "description": "Decoupled remote content repository for Taiwanese Mandarin vocabulary, verbs, and daily sentences.",
+    "version": "1.0.1",
+    "schema_version": "1.0",
+    "last_updated": "2026-11-10T22:56:42.489264+00:00",
+    "repository": "https://github.com/lockum/Dictionary-IAC",
+    "cdn_base_url": "https://cdn.jsdelivr.net/gh/lockum/Dictionary-IAC@main/",
+    "counts": {
+      "words": 97,
+      "verbs": 32,
+      "sentences": 18,
+      "levels": 6,
+      "purposes": 5
+    },
+    "endpoints": {
+      "all": "seed_data.json",
+      "words": "words/words.json",
+      "verbs": "verbs/verbs.json",
+      "sentences": "sentences/sentences.json",
+      "levels": "curriculum/levels.json",
+      "purposes": "curriculum/purposes.json"
+    }
+  },
   "purposes": [
     {
       "id": "daily-taipei",
@@ -3162,6 +3187,70 @@
       "ko": "몇 분이세요?",
       "pt": "Quantas pessoas?",
       "hi": "कितने व्यक्ति?"
+    },
+    {
+      "id": "w_yeshi",
+      "hanzi": "夜市",
+      "pinyin": "yè shì",
+      "zhuyin": "ㄧㄝˋ ㄕˋ",
+      "tr": "Gece Pazarı",
+      "en": "Night market",
+      "taiwan_note": "Sokak lezzetleri, atıştırmalıklar ve oyunlarla dolu Tayvan kültürünün kalbi (ör. Şilin, Raohe, Liuhe).",
+      "level_id": 1,
+      "difficulty": "Easy",
+      "week_label": "Week 1",
+      "translations": {
+        "tr": "Gece Pazarı",
+        "en": "Night market",
+        "es": "Mercado nocturno",
+        "de": "Nachtmarkt",
+        "fr": "Marché de nuit",
+        "it": "Mercato notturno",
+        "ja": "夜市（ナイトマーケット）",
+        "ko": "야시장",
+        "pt": "Mercado noturno",
+        "hi": "नाइट मार्केट (रात्रि बाज़ार)"
+      },
+      "es": "Mercado nocturno",
+      "de": "Nachtmarkt",
+      "fr": "Marché de nuit",
+      "it": "Mercato notturno",
+      "ja": "夜市（ナイトマーケット）",
+      "ko": "야시장",
+      "pt": "Mercado noturno",
+      "hi": "नाइट मार्केट (रात्रि बाज़ार)"
+    },
+    {
+      "id": "w_mangguobing",
+      "hanzi": "芒果冰",
+      "pinyin": "máng guǒ bīng",
+      "zhuyin": "ㄇㄤˊ ㄍㄨㄛˇ ㄅㄧㄥ",
+      "tr": "Mangolu Kar Helvası / Mango Shaved Ice",
+      "en": "Mango shaved ice",
+      "taiwan_note": "Taze Tayvan mangosu ve yoğunlaştırılmış süt ile servis edilen ünlü Tayvan yaz tatlısı.",
+      "level_id": 1,
+      "difficulty": "Easy",
+      "week_label": "Week 2",
+      "translations": {
+        "tr": "Mangolu Kar Helvası / Mango Shaved Ice",
+        "en": "Mango shaved ice",
+        "es": "Hielo raspado con mango",
+        "de": "Mango-Kratzeis / Shaved Ice",
+        "fr": "Glace pilée à la mangue",
+        "it": "Granita di mango taiwanese",
+        "ja": "マンゴーかき氷（芒果冰）",
+        "ko": "망고 빙수",
+        "pt": "Raspadinha de gelo com manga",
+        "hi": "आम की शेव्ड आइस"
+      },
+      "es": "Hielo raspado con mango",
+      "de": "Mango-Kratzeis / Shaved Ice",
+      "fr": "Glace pilée à la mangue",
+      "it": "Granita di mango taiwanese",
+      "ja": "マンゴーかき氷（芒果冰）",
+      "ko": "망고 빙수",
+      "pt": "Raspadinha de gelo com manga",
+      "hi": "आम की शेव्ड आइस"
     }
   ],
   "verbs": [
@@ -23532,132 +23621,6 @@
       "ko_full": "모두 몇 분이신가요? 안쪽에 앉으시겠어요, 바깥쪽에 앉으시겠어요?",
       "pt_full": "Quantas pessoas são no total? Desejam sentar dentro ou fora?",
       "hi_full": "आप कुल कितने लोग हैं? अंदर बैठना चाहेंगे या बाहर?"
-    }
-  ],
-  "curated_packs": [
-    {
-      "pack_id": "week2_taiwan_slang_food",
-      "title": "Week 2 Pack: Taiwanese Breakfast Shop & Slang (早餐店與台灣流行語)",
-      "purpose_id": "night-market",
-      "words": [
-        {
-          "id": "w_danbing",
-          "hanzi": "蛋餅",
-          "pinyin": "dàn bǐng",
-          "zhuyin": "ㄉㄢˋ ㄅㄧㄥˇ",
-          "tr": "Tayvan usulü yumurtalı krep (Danbing)",
-          "en": "Taiwanese egg crepe roll",
-          "taiwan_note": "A quintessential Taiwanese breakfast dish ordered at every 早餐店.",
-          "level_id": 2,
-          "difficulty": "Easy",
-          "week_label": "Week 2"
-        },
-        {
-          "id": "w_shuaige",
-          "hanzi": "帥哥",
-          "pinyin": "shuài gē",
-          "zhuyin": "ㄕㄨㄞˋ ㄍㄜ",
-          "tr": "Yakışıklı (Kahvaltıcı teyzelerin hitabı)",
-          "en": "Handsome guy (How breakfast aunties call male customers)",
-          "taiwan_note": "Breakfast shop aunties (阿姨) call every customer 帥哥 (handsome) or 美女 (beauty)!",
-          "level_id": 1,
-          "difficulty": "Easy",
-          "week_label": "Week 2"
-        },
-        {
-          "id": "w_cpzhi",
-          "hanzi": "CP值",
-          "pinyin": "C P zhí",
-          "zhuyin": "CP ㄓˊ",
-          "tr": "Fiyat/Performans oranı",
-          "en": "Cost-Performance ratio (Value for money)",
-          "taiwan_note": "Taiwanese people love saying CP值很高 (great value for money).",
-          "level_id": 5,
-          "difficulty": "Hard",
-          "week_label": "Week 2"
-        }
-      ],
-      "sentences": [
-        {
-          "id": "s_w2_easy",
-          "level_id": 2,
-          "difficulty": "Easy",
-          "difficulty_order": 2,
-          "day_label": "Week 2",
-          "hanzi": "阿姨早安，我要一份起司蛋餅跟冰豆漿。",
-          "pinyin": "Ā yí zǎo ān, wǒ yào yí fèn qǐ sī dàn bǐng gēn bīng dòu jiāng.",
-          "zhuyin": "ㄚ ㄧˊ ㄗㄠˇ ㄢ，ㄨㄛˇ ㄧㄠˋ ㄧˊ ㄈㄣˋ ㄑㄧˇ ㄙ ㄉㄢˋ ㄅㄧㄥˇ ㄍㄣ ㄅㄧㄥ ㄉㄡˋ ㄐㄧㄤ。",
-          "tr_full": "Günaydın teyze, bir porsiyon peynirli yumurtalı krep (danbing) ve buzlu soya sütü istiyorum.",
-          "en_full": "Good morning Auntie, I want one cheese egg crepe and an iced soy milk.",
-          "grammar_tip": "起司 (qǐ sī) is the Taiwanese loanword for cheese. 一份 (yí fèn) is a food portion.",
-          "tokens": [
-            {
-              "hanzi": "阿姨",
-              "pinyin": "ā yí",
-              "zhuyin": "ㄚ ㄧˊ",
-              "tr": "Teyze / Abla",
-              "en": "Auntie"
-            },
-            {
-              "hanzi": "早安",
-              "pinyin": "zǎo ān",
-              "zhuyin": "ㄗㄠˇ ㄢ",
-              "tr": "günaydın",
-              "en": "good morning"
-            },
-            {
-              "hanzi": "，",
-              "is_punct": true
-            },
-            {
-              "hanzi": "我要",
-              "pinyin": "wǒ yào",
-              "zhuyin": "ㄨㄛˇ ㄧㄠˋ",
-              "tr": "istiyorum",
-              "en": "I want"
-            },
-            {
-              "hanzi": "一份",
-              "pinyin": "yí fèn",
-              "zhuyin": "ㄧˊ ㄈㄣˋ",
-              "tr": "bir porsiyon",
-              "en": "one portion of"
-            },
-            {
-              "hanzi": "起司",
-              "pinyin": "qǐ sī",
-              "zhuyin": "ㄑㄧˇ ㄙ",
-              "tr": "peynirli (cheese)",
-              "en": "cheese"
-            },
-            {
-              "hanzi": "蛋餅",
-              "pinyin": "dàn bǐng",
-              "zhuyin": "ㄉㄢˋ ㄅㄧㄥˇ",
-              "tr": "yumurtalı krep (danbing)",
-              "en": "egg crepe"
-            },
-            {
-              "hanzi": "跟",
-              "pinyin": "gēn",
-              "zhuyin": "ㄍㄣ",
-              "tr": "ve / ile",
-              "en": "and / with"
-            },
-            {
-              "hanzi": "冰豆漿",
-              "pinyin": "bīng dòu jiāng",
-              "zhuyin": "ㄅㄧㄥ ㄉㄡˋ ㄐㄧㄤ",
-              "tr": "buzlu soya sütü",
-              "en": "iced soy milk"
-            },
-            {
-              "hanzi": "。",
-              "is_punct": true
-            }
-          ]
-        }
-      ]
     }
   ]
 }
