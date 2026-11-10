@@ -1,120 +1,58 @@
-# FormosaLingua — Dictionary IAC (Infrastructure as Content)
+# Dictionary-IAC (Infrastructure as Content)
 
-Decoupled, version-controlled remote dictionary repository for **FormosaLingua** (Traditional Taiwanese Mandarin • 繁體中文與注音符號).
-
----
-
-## 1. Overview & Architecture
-
-**Dictionary-IAC** is an Infrastructure-as-Content (IaC) repository that separates language data from the application source code.
-It acts as a **Headless Linguistic CMS** distributed globally via the **jsDelivr CDN**.
-
-```mermaid
-flowchart LR
-    subgraph Repo ["Dictionary-IAC Repository"]
-        Meta["metadata.json"]
-        Words["words/words.json"]
-        Verbs["verbs/verbs.json"]
-        Sentences["sentences/sentences.json"]
-    end
-
-    subgraph CDN ["jsDelivr Global Edge CDN"]
-        CDN_Meta["cdn.jsdelivr.net/.../metadata.json"]
-        CDN_Words["cdn.jsdelivr.net/.../words.json"]
-    end
-
-    subgraph App ["FormosaLingua Web / Mobile App"]
-        SyncEngine["Sync & Version Checker"]
-        LocalStore[("IndexedDB / SQLite")]
-    end
-
-    Repo -- "git push origin main" --> CDN
-    App -- "fetch version on launch" --> CDN_Meta
-    App -- "download new words" --> CDN_Words
-    CDN_Words --> LocalStore
-```
+A version-controlled linguistic dataset for Traditional Taiwanese Mandarin (繁體中文與注音符號), designed for modern language learning platforms and natural language processing.
 
 ---
 
-## 2. Global CDN Endpoints (100% Free)
+## 1. Overview
 
-All files committed to the `main` branch are instantly cached and served via jsDelivr CDN worldwide:
+**Dictionary-IAC** decouples language content from application source code. It provides structured, curated vocabulary, Taiwanese Mandarin verbs, pronoun conjugation matrices, and progressive daily sentences across 10 global languages.
 
-| Asset | jsDelivr CDN URL | Raw GitHub URL |
-|---|---|---|
-| **Metadata & Version** | `https://cdn.jsdelivr.net/gh/lockum/Dictionary-IAC@main/metadata.json` | `https://raw.githubusercontent.com/lockum/Dictionary-IAC/main/metadata.json` |
-| **All-in-One Seed** | `https://cdn.jsdelivr.net/gh/lockum/Dictionary-IAC@main/seed_data.json` | `https://raw.githubusercontent.com/lockum/Dictionary-IAC/main/seed_data.json` |
-| **Words Deck** | `https://cdn.jsdelivr.net/gh/lockum/Dictionary-IAC@main/words/words.json` | `https://raw.githubusercontent.com/lockum/Dictionary-IAC/main/words/words.json` |
-| **Verbs Deck** | `https://cdn.jsdelivr.net/gh/lockum/Dictionary-IAC@main/verbs/verbs.json` | `https://raw.githubusercontent.com/lockum/Dictionary-IAC/main/verbs/verbs.json` |
-| **Sentences Deck** | `https://cdn.jsdelivr.net/gh/lockum/Dictionary-IAC@main/sentences/sentences.json` | `https://raw.githubusercontent.com/lockum/Dictionary-IAC/main/sentences/sentences.json` |
+### Core Datasets
 
----
-
-## 3. How to Add New Words
-
-To add new words, open `words/words.json` and append a new JSON object:
-
-```json
-{
-  "id": "w_kaixin",
-  "hanzi": "開心",
-  "pinyin": "kāi xīn",
-  "zhuyin": "ㄎㄞ ㄒㄧㄣ",
-  "tr": "Mutlu / Sevinçli",
-  "en": "Happy / Joyful",
-  "taiwan_note": "Very common in daily life (e.g. 今天好開心).",
-  "level_id": 2,
-  "difficulty": "Easy",
-  "category": "Emotions",
-  "translations": {
-    "tr": "Mutlu",
-    "en": "Happy",
-    "es": "Feliz",
-    "de": "Glücklich",
-    "fr": "Heureux",
-    "it": "Felice",
-    "ja": "嬉しい",
-    "ko": "행복하다",
-    "pt": "Feliz",
-    "hi": "खुश"
-  }
-}
-```
+- **Vocabulary Deck (`words/`)**: High-frequency authentic vocabulary categorized by daily life, work, emotions, dining, culture, and Taiwanese lifestyle.
+- **Verbs Training (`verbs/`)**: High-frequency verbs accompanied by authentic pronoun patterns (`我去`, `你去`, `他/她/它去`, `他們去`, `你們去`, `我們去`), object examples, and Traditional Zhuyin keyboard (`ㄅㄆㄇㄈ`) typing sequences.
+- **Daily Sentences (`sentences/`)**: Progressive daily sentences graded from Easy to Hard with token-level bilingual breakdowns and Taiwanese grammar notes.
+- **Curriculum Paths (`curriculum/`)**: Authentic thematic units, skill tree levels, and purpose tracks.
 
 ---
 
-## 4. How to Release an Update
-
-1. Edit your JSON files (`words/words.json`, `verbs/verbs.json`, etc.).
-2. In `metadata.json`, bump the `version` (e.g. from `1.0.0` to `1.1.0`) and update `last_updated`.
-3. Commit and push:
-
-```bash
-git add .
-git commit -m "feat: add new emotion and daily life vocabulary"
-git push origin main
-```
-
-Within seconds, the jsDelivr CDN and the FormosaLingua application will detect the new version and sync the vocabulary!
-
----
-
-## 5. Repository Structure
+## 2. Directory Layout
 
 ```
-├── README.md
-├── metadata.json           # Version & delta checksums
-├── seed_data.json          # Consolidated snapshot
+Dictionary-IAC/
+├── README.md                 # Project overview
+├── metadata.json             # Dataset versioning & item counts
+├── seed_data.json            # Consolidated snapshot dataset
 ├── words/
-│   └── words.json          # All vocabulary cards
+│   └── words.json            # Vocabulary entries
 ├── verbs/
-│   └── verbs.json          # Taiwanese verbs & conjugations
+│   └── verbs.json            # Verbs & pronoun conjugations
 ├── sentences/
-│   └── sentences.json      # Progressive daily sentences
-└── curriculum/
-    ├── levels.json         # Skill path levels
-    └── purposes.json       # Tracks (Daily, Travel, Work, Exam)
+│   └── sentences.json        # Graded sentence cards
+├── curriculum/
+│   ├── levels.json           # Progression levels
+│   └── purposes.json         # Learning purposes
+└── docs/                     # Schemas & AI Agent Contribution Guides
+    ├── README.md             # Documentation index
+    ├── VOCABULARY_SCHEMA.md  # Word schema specification & examples
+    ├── VERBS_SCHEMA.md       # Verb schema & conjugation rules
+    ├── SENTENCES_SCHEMA.md   # Sentence token schema
+    ├── AI_AGENT_WORKFLOW.md  # Operational guide for AI assistants
+    └── validate.py           # Automated schema & ID validator
 ```
 
 ---
-*Maintained by Lockum for FormosaLingua • All Rights Reserved.*
+
+## 3. Contributing & AI Agent Instructions
+
+For full specifications on how to add new words, verbs, or sentences, please refer to the **[`docs/`](docs/README.md)** directory:
+
+- Read **[`docs/AI_AGENT_WORKFLOW.md`](docs/AI_AGENT_WORKFLOW.md)** before generating or updating entries.
+- Always validate entries by running:
+  ```bash
+  python3 docs/validate.py
+  ```
+
+---
+*Maintained by Lockum • All Rights Reserved.*
