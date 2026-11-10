@@ -22,3 +22,4 @@ This directory provides data schemas, linguistic guidelines, and contribution wo
 2. **Standard Taiwanese Zhuyin Fuhao (注音符號)**: Accompany every Hanzi with correct Zhuyin (e.g., ㄋㄧˇ ㄏㄠˇ). Include tone marks (ˊ for 2nd tone, ˇ for 3rd tone, ˋ for 4th tone, ˙ for neutral/5th tone).
 3. **10-Language Translation Matrix**: Entries include full translations for Turkish (`tr`), English (`en`), Spanish (`es`), German (`de`), French (`fr`), Italian (`it`), Japanese (`ja`), Korean (`ko`), Portuguese (`pt`), and Hindi (`hi`).
 4. **Authentic Taiwanese Lifestyle**: Notes reflect authentic Taiwanese daily life, night markets, breakfast culture, MRT navigation, and social politeness.
+
