@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "unit_number": 1,
+    "title": "Level 1: Taiwanese Greetings & Politeness",
+    "title_tr": "Seviye 1: Tayvan Usulü Selamlaşma ve Nezaket",
+    "purpose_id": "daily-taipei",
+    "difficulty": "Easy",
+    "xp_required": 0,
+    "icon": "👋",
+    "color": "#10b981"
+  },
+  {
+    "id": 2,
+    "unit_number": 2,
+    "title": "Level 2: Boba, Bento & Night Market Food",
+    "title_tr": "Seviye 2: Bubble Tea, Bento ve Sokak Lezzetleri",
+    "purpose_id": "night-market",
+    "difficulty": "Easy",
+    "xp_required": 30,
+    "icon": "🧋",
+    "color": "#f59e0b"
+  },
+  {
+    "id": 3,
+    "unit_number": 3,
+    "title": "Level 3: MRT, EasyCard & Getting Around",
+    "title_tr": "Seviye 3: Metro (捷運), EasyCard ve Ulaşım",
+    "purpose_id": "mrt-travel",
+    "difficulty": "Medium",
+    "xp_required": 70,
+    "icon": "🚇",
+    "color": "#3b82f6"
+  },
+  {
+    "id": 4,
+    "unit_number": 4,
+    "title": "Level 4: 7-Eleven, Shopping & Daily Life",
+    "title_tr": "Seviye 4: 7-Eleven, Alışveriş ve Günlük İşler",
+    "purpose_id": "daily-taipei",
+    "difficulty": "Medium",
+    "xp_required": 120,
+    "icon": "🏪",
+    "color": "#8b5cf6"
+  },
+  {
+    "id": 5,
+    "unit_number": 5,
+    "title": "Level 5: Taiwanese Slang & Native Expressions",
+    "title_tr": "Seviye 5: Tayvan Sokak Argoları ve Yerel Deyimler",
+    "purpose_id": "social-work",
+    "difficulty": "Hard",
+    "xp_required": 180,
+    "icon": "🇹🇼",
+    "color": "#ec4899"
+  },
+  {
+    "id": 6,
+    "unit_number": 6,
+    "title": "Level 6: Asking Questions in Taiwan (Who, What, Where, Why)",
+    "title_tr": "Seviye 6: Tayvan Usulü Soru Sorma (Kim, Ne, Nerede, Neden)",
+    "purpose_id": "question-patterns",
+    "difficulty": "Easy",
+    "xp_required": 25,
+    "icon": "❓",
+    "color": "#0284c7"
+  }
+]

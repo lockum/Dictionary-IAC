@@ -1,0 +1,47 @@
+[
+  {
+    "id": "daily-taipei",
+    "title": "Daily Life in Taipei (台北日常)",
+    "title_tr": "Taipei'de Günlük Yaşam",
+    "description": "Essential Taiwanese phrases for convenience stores, greetings, and daily errands.",
+    "icon": "🏮",
+    "target_words_per_week": 25,
+    "active": 1
+  },
+  {
+    "id": "night-market",
+    "title": "Night Market & Food (夜市與美食)",
+    "title_tr": "Gece Pazarı ve Yemek Kültürü",
+    "description": "Order bubble tea, bento boxes, street snacks, and hot pot like a local in Taiwan.",
+    "icon": "🧋",
+    "target_words_per_week": 25,
+    "active": 1
+  },
+  {
+    "id": "mrt-travel",
+    "title": "MRT, Scooters & Travel (捷運與交通)",
+    "title_tr": "MRT, Motor ve Seyahat",
+    "description": "Navigate the Taipei MRT, EasyCard (悠遊卡), High Speed Rail (高鐵), and YouBike.",
+    "icon": "🚆",
+    "target_words_per_week": 20,
+    "active": 1
+  },
+  {
+    "id": "social-work",
+    "title": "Local Slang & Friends (流行語與社交)",
+    "title_tr": "Tayvan Argoları ve Sosyal Hayat",
+    "description": "Everyday Taiwanese slang, reactions, phrases for chatting on LINE, and polite work nuance.",
+    "icon": "💬",
+    "target_words_per_week": 30,
+    "active": 1
+  },
+  {
+    "id": "question-patterns",
+    "title": "Questions & Inquiries (疑問與問句)",
+    "title_tr": "Soru Kalıpları ve İletişim (Kim, Ne, Nerede, Neden)",
+    "description": "Essential Taiwanese question patterns: who (誰), what (什麼), where (哪裡), why (為什麼), when (什麼時候), how (怎麼), how much (多少錢), and party count (幾位).",
+    "icon": "❓",
+    "target_words_per_week": 25,
+    "active": 1
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "name": "FormosaLingua — Dictionary IAC (Infrastructure as Content)",
+  "description": "Decoupled remote content repository for Taiwanese Mandarin vocabulary, verbs, and daily sentences.",
+  "version": "1.0.0",
+  "schema_version": "1.0",
+  "last_updated": "2026-11-10T21:59:11.353277+00:00",
+  "repository": "https://github.com/lockum/Dictionary-IAC",
+  "cdn_base_url": "https://cdn.jsdelivr.net/gh/lockum/Dictionary-IAC@main/",
+  "counts": {
+    "words": 95,
+    "verbs": 32,
+    "sentences": 18,
+    "levels": 6,
+    "purposes": 5
+  },
+  "endpoints": {
+    "all": "seed_data.json",
+    "words": "words/words.json",
+    "verbs": "verbs/verbs.json",
+    "sentences": "sentences/sentences.json",
+    "levels": "curriculum/levels.json",
+    "purposes": "curriculum/purposes.json"
+  }
+}
