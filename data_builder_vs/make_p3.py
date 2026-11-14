@@ -1,0 +1,948 @@
+import json
+
+data = [
+    # 1. 降落
+    [
+        "v_jiangluo", "降落", "jiàng luò", "ㄐㄧㄤˋ ㄌㄨㄛˋ", "İnmek (uçak)", "To land",
+        "桃園機場降落時可以看到美麗的台灣海岸線。",
+        2, "Easy", "Travel & Transit", "🛬",
+        "Aterrizar", "Landen", "Atterrir", "Atterrare", "着陸する", "착륙하다", "Aterrisar", "उतरना",
+        "in", "land",
+        "跑道", "pǎo dào", "ㄆㄠˇ ㄉㄠˋ", "🛫", "Pist", "runway",
+        "飛機降落在跑道上", "fēi jī jiàng luò zài pǎo dào shàng", "ㄈㄟ ㄐㄧ ㄐㄧㄤˋ ㄌㄨㄛˋ ㄗㄞˋ ㄆㄠˇ ㄉㄠˋ ㄕㄤˋ",
+        "Uçak piste iniyor", "The plane is landing on the runway"
+    ],
+    # 2. 托運
+    [
+        "v_tuoyun", "托運", "tuō yùn", "ㄊㄨㄛ ㄩㄣˋ", "Bagaj vermek", "To check (luggage)",
+        "在機場辦理登機時，可以將大件行李托運。",
+        2, "Easy", "Travel & Transit", "🧳",
+        "Facturar equipaje", "Aufgeben", "Enregistrer", "Imbarcare", "預け入れる", "위탁하다", "Despachar", "जमा कराना",
+        "bagaj ver", "check",
+        "行李", "xíng lǐ", "ㄒㄧㄥˊ ㄌㄧˇ", "🧳", "Bagaj", "luggage",
+        "我托運行李", "wǒ tuō yùn xíng lǐ", "ㄨㄛˇ ㄊㄨㄛ ㄩㄣˋ ㄒㄧㄥˊ ㄌㄧˇ",
+        "Ben bagajı teslim ediyorum", "I check my luggage"
+    ],
+    # 3. 過關
+    [
+        "v_guoguan", "過關", "guò guān", "ㄍㄨㄛˋ ㄍㄨㄢ", "Kontrolden geçmek", "To pass customs/inspection",
+        "台灣機場設有自動通關系統，非常快捷。",
+        2, "Easy", "Travel & Transit", "🛂",
+        "Pasar el control", "Zoll/Passkontrolle passieren", "Passer la douane", "Passare i controlli", "税関を通る", "통관하다", "Passar pela alfândega", "कस्टम पार करना",
+        "kontrolden geç", "pass inspection",
+        "海關", "hǎi guān", "ㄏㄞˇ ㄍㄨㄢ", "🏛️", "Gümrük", "customs",
+        "我們順利過關", "wǒ men shùn lì guò guān", "ㄨㄛˇ ㄇㄣ˙ ㄕㄨㄣˋ ㄌㄧˋ ㄍㄨㄛˋ ㄍㄨㄢ",
+        "Sorunsuz bir şekilde kontrolden geçiyoruz", "We pass customs smoothly"
+    ],
+    # 4. 申報
+    [
+        "v_shenbao", "申報", "shēn bào", "ㄕㄣ ㄅㄠˋ", "Beyan etmek", "To declare",
+        "入境台灣攜帶肉製品必須主動申報，否則重罰。",
+        3, "Medium", "Travel & Transit", "📝",
+        "Declarar", "Deklarieren", "Déclarer", "Dichiarare", "申告する", "신고하다", "Declarar", "घोषणा करना",
+        "beyan et", "declare",
+        "物品", "wù pǐn", "ㄨˋ ㄆㄧㄣˇ", "📦", "Eşya / Ürün", "items",
+        "請誠實申報物品", "qǐng chéng shí shēn bào wù pǐn", "ㄑㄧㄥˇ ㄔㄥˊ ㄕˊ ㄕㄣ ㄅㄠˋ ㄨˋ ㄆㄧㄣˇ",
+        "Lütfen eşyaları dürüstçe beyan ediniz", "Please declare items honestly"
+    ],
+    # 5. 入境
+    [
+        "v_rujing", "入境", "rù jìng", "ㄖㄨˋ ㄐㄧㄥˋ", "Ülkeye giriş yapmak", "To enter a country",
+        "外籍旅客入境台灣需要填寫入國登記卡。",
+        2, "Easy", "Travel & Transit", "🛃",
+        "Entrar al país", "Einreisen", "Entrer sur le territoire", "Entrare nel paese", "入国する", "입국하다", "Entrar no país", "प्रवेश करना",
+        "giriş yap", "enter the country",
+        "台灣", "tái wān", "ㄊㄞˊ ㄨㄢ", "🇹🇼", "Tayvan", "Taiwan",
+        "歡迎入境台灣", "huān yíng rù jìng tái wān", "ㄏㄨㄢ ㄧㄥˊ ㄖㄨˋ ㄐㄧㄥˋ ㄊㄞˊ ㄨㄢ",
+        "Tayvan'a hoş geldiniz", "Welcome to enter Taiwan"
+    ],
+    # 6. 出境
+    [
+        "v_chujing", "出境", "chū jìng", "ㄔㄨ ㄐㄧㄥˋ", "Ülkeden çıkış yapmak", "To depart / leave country",
+        "出境前別忘了在機場退稅哦！",
+        2, "Easy", "Travel & Transit", "🛫",
+        "Salir del país", "Ausreisen", "Quitter le pays", "Uscire dal paese", "出国する", "출국하다", "Sair do país", "देश से निकलना",
+        "çıkış yap", "depart",
+        "大廳", "dà tīng", "ㄉㄚˋ ㄊㄧㄥ", "🏛️", "Salon / Terminal", "lobby/hall",
+        "我們走向出境大廳", "wǒ men zǒu xiàng chū jìng dà tīng", "ㄨㄛˇ ㄇㄣ˙ ㄗㄡˇ ㄒㄧㄤˋ ㄔㄨ ㄐㄧㄥˋ ㄉㄚˋ ㄊㄧㄥ",
+        "Dış hatlar çıkış salonuna doğru yürüyoruz", "We walk towards the departure hall"
+    ],
+    # 7. 預訂
+    [
+        "v_yuding", "預訂", "yù dìng", "ㄩˋ ㄉㄧㄥˋ", "Rezervasyon yapmak", "To book / reserve",
+        "在台灣搭乘高鐵提前預訂通常有早鳥優惠。",
+        1, "Easy", "Travel & Transit", "📅",
+        "Reservar", "Buchen / Reservieren", "Réserver", "Prenotare", "予約する", "예약하다", "Reservar", "आरक्षण करना",
+        "rezervasyon yap", "book",
+        "車票", "chē piào", "ㄔㄜ ㄆㄧㄠˋ", "🎫", "Bilet", "ticket",
+        "我預訂了車票", "wǒ yù dìng le chē piào", "ㄨㄛˇ ㄩˋ ㄉㄧㄥˋ ˙ㄌㄜ ㄔㄜ ㄆㄧㄠˋ",
+        "Ben bilet rezervasyonu yaptım", "I booked a ticket"
+    ],
+    # 8. 取消
+    [
+        "v_quxiao", "取消", "qǔ xiāo", "ㄑㄩˇ ㄒㄧㄠ", "İptal etmek", "To cancel",
+        "若因颱風導致航班取消，航空公司會協助改票。",
+        2, "Easy", "Daily Actions", "❌",
+        "Cancelar", "Stornieren", "Annuler", "Cancellare", "キャンセルする", "취소하다", "Cancelar", "रद्द करना",
+        "iptal et", "cancel",
+        "會議", "huì yì", "ㄏㄨㄟˋ ㄧˋ", "💼", "Toplantı", "meeting",
+        "老闆取消了會議", "lǎo bǎn qǔ xiāo le huì yì", "ㄌㄠˇ ㄅㄢˇ ㄑㄩˇ ㄒㄧㄠ ˙ㄌㄜ ㄏㄨㄟˋ ㄧˋ",
+        "Patron toplantıyı iptal etti", "The boss canceled the meeting"
+    ],
+    # 9. 改期
+    [
+        "v_gaiqi", "改期", "gǎi qí", "ㄍㄞˇ ㄑㄧˊ", "Tarihi değiştirmek", "To reschedule",
+        "如果有事不能出席，請提前聯繫改期。",
+        2, "Easy", "Daily Actions", "🗓️",
+        "Reprogramar", "Verschieben", "Reporter", "Riprogrammare", "日程変更する", "일정을 변경하다", "Remarcar", "पुनर्निर्धारित करना",
+        "tarihi değiştir", "reschedule",
+        "預約", "yù yuē", "ㄩˋ ㄩㄝ", "📆", "Randevu", "appointment",
+        "我想改期預約", "wǒ xiǎng gǎi qí yù yuē", "ㄨㄛˇ ㄒㄧㄤˇ ㄍㄞˇ ㄑㄧˊ ㄩˋ ㄩㄝ",
+        "Randevu tarihini değiştirmek istiyorum", "I want to reschedule the appointment"
+    ],
+    # 10. 遊覽
+    [
+        "v_youlan", "遊覽", "yóu lǎn", "ㄧㄡˊ ㄌㄢˇ", "Gezmek, turlamak", "To tour / sightsee",
+        "日月潭是遊覽台灣不可錯過的絕美景點。",
+        3, "Medium", "Travel & Transit", "🗺️",
+        "Recorrer", "Besichtigen", "Visiter", "Visitare", "遊覧する", "유람하다", "Excursionar", "भ्रमण करना",
+        "gez", "tour",
+        "名勝", "míng shèng", "ㄇㄧㄥˊ ㄕㄥˋ", "🏞️", "Tarihi/turistik yer", "scenic spot",
+        "我們遊覽名勝古蹟", "wǒ men yóu lǎn míng shèng gǔ jī", "ㄨㄛˇ ㄇㄣ˙ ㄧㄡˊ ㄌㄢˇ ㄇㄧㄥˊ ㄕㄥˋ ㄍㄨˇ ㄐㄧ",
+        "Tarihi ve turistik yerleri geziyoruz", "We tour scenic and historic sites"
+    ],
+    # 11. 參觀
+    [
+        "v_canguan", "參觀", "cān guān", "ㄘㄢ ㄍㄨㄢ", "Ziyaret etmek / gezmek", "To visit / inspect",
+        "台北故宮博物院收藏了無數珍貴文物，值得參觀。",
+        2, "Easy", "Culture & Society", "🏛️",
+        "Visitar", "Besuchen", "Visiter", "Visitare", "見学する", "견학하다", "Visitar", "दौरा करना",
+        "ziyaret et", "visit",
+        "博物館", "bó wù guǎn", "ㄅㄛˊ ㄨˋ ㄍㄨㄢˇ", "🏛️", "Müze", "museum",
+        "學生們參觀博物館", "xué shēng men cān guān bó wù guǎn", "ㄒㄩㄝˊ ㄕㄥ ˙ㄇㄣ ㄘㄢ ㄍㄨㄢ ㄅㄛˊ ㄨˋ ㄍㄨㄢˇ",
+        "Öğrenciler müzeyi ziyaret ediyor", "The students visit the museum"
+    ],
+    # 12. 拍照
+    [
+        "v_paizhao", "拍照", "pāi zhào", "ㄆㄞ ㄓㄠˋ", "Fotoğraf çekmek", "To take photos",
+        "在台北101景觀台，很多人喜歡拍照留念。",
+        1, "Easy", "Daily Actions", "📷",
+        "Tomar fotos", "Fotografieren", "Prendre une photo", "Fare foto", "写真を撮る", "사진을 찍다", "Tirar fotos", "तस्वीर खींचना",
+        "fotoğraf çek", "take photos",
+        "風景", "fēng jǐng", "ㄈㄥ ㄐㄧㄥˇ", "🌄", "Manzara", "scenery",
+        "我在這裡拍照", "wǒ zài zhè lǐ pāi zhào", "ㄨㄛˇ ㄗㄞˋ ㄓㄜˋ ㄌㄧˇ ㄆㄞ ㄓㄠˋ",
+        "Ben burada fotoğraf çekiyorum", "I take photos here"
+    ],
+    # 13. 自拍
+    [
+        "v_zipai", "自拍", "zì pāi", "ㄗˋ ㄆㄞ", "Selfie çekmek", "To take a selfie",
+        "台灣年輕人逛街時非常流行自拍發社群軟體。",
+        1, "Easy", "Daily Actions", "🤳",
+        "Tomarse una selfie", "Ein Selfie machen", "Prendre un selfie", "Farsi un selfie", "自撮りする", "셀카를 찍다", "Tirar uma selfie", "सेल्फी लेना",
+        "selfie çek", "take a selfie",
+        "合照", "hé zhào", "ㄏㄜˊ ㄓㄠˋ", "👥", "Grup fotoğrafı", "group photo",
+        "我們一起自拍", "wǒ men yì qǐ zì pāi", "ㄨㄛˇ ㄇㄣ˙ ㄧˋ ㄑㄧˇ ㄗˋ ㄆㄞ",
+        "Birlikte selfie çekiliyoruz", "We take a selfie together"
+    ],
+    # 14. 錄影
+    [
+        "v_luying", "錄影", "lù yǐng", "ㄌㄨˋ ㄧㄥˇ", "Video çekmek", "To record video",
+        "看演唱會時要注意有些場館禁止私自錄影。",
+        2, "Easy", "Daily Actions", "📹",
+        "Grabar video", "Aufnehmen", "Enregistrer une vidéo", "Registrare video", "録画する", "녹화하다", "Gravar vídeo", "वीडियो रिकॉर्ड करना",
+        "video çek", "record video",
+        "活動", "huó dòng", "ㄏㄨㄛˊ ㄉㄨㄥˋ", "🎪", "Etkinlik", "activity / event",
+        "他在為活動錄影", "tā zài wèi huó dòng lù yǐng", "ㄊㄚ ㄗㄞˋ ㄨㄟˋ ㄏㄨㄛˊ ㄉㄨㄥˋ ㄌㄨˋ ㄧㄥˇ",
+        "O etkinlik için video çekiyor", "He is recording video for the event"
+    ],
+    # 15. 打卡
+    [
+        "v_daka", "打卡", "dǎ kǎ", "ㄉㄚˇ ㄎㄚˇ", "Konum bildirmek / Check-in yapmak", "To check in",
+        "到了台灣知名景點一定要打卡上傳Instagram！",
+        1, "Easy", "Daily Actions", "📍",
+        "Registrarse / Hacer check-in", "Einchecken", "Pointer / Faire un check-in", "Fare il check-in", "チェックインする", "체크인하다", "Fazer check-in", "चेक-इन करना",
+        "konum bildir", "check in",
+        "景點", "jǐng diǎn", "ㄐㄧㄥˇ ㄉㄧㄢˇ", "🗼", "Gezilecek yer", "attraction",
+        "大家在景點打卡", "dà jiā zài jǐng diǎn dǎ kǎ", "ㄉㄚˋ ㄐㄧㄚ ㄗㄞˋ ㄐㄧㄥˇ ㄉㄧㄢˇ ㄉㄚˇ ㄎㄚˇ",
+        "Herkes turistik mekanda check-in yapıyor", "Everyone checks in at the attraction"
+    ],
+    # 16. 排隊
+    [
+        "v_paidui", "排隊", "pái duì", "ㄆㄞˊ ㄉㄨㄟˋ", "Sıraya girmek", "To queue / line up",
+        "台灣人搭捷運與買小吃非常守秩序，習慣自覺排隊。",
+        1, "Easy", "Daily Actions", "🚶‍♂️",
+        "Hacer cola", "Schlange stehen", "Faire la queue", "Fare la fila", "並ぶ", "줄을 서다", "Fazer fila", "कतार में लगना",
+        "sıraya gir", "line up",
+        "隊伍", "duì wǔ", "ㄉㄨㄟˋ ㄨˇ", "👥", "Sıra / Kuyruk", "line",
+        "請大家排隊上車", "qǐng dà jiā pái duì shàng chē", "ㄑㄧㄥˇ ㄉㄚˋ ㄐㄧㄚ ㄆㄞˊ ㄉㄨㄟˋ ㄕㄤˋ ㄔㄜ",
+        "Lütfen herkes araca sırayla binsin", "Please line up to board"
+    ],
+    # 17. 插隊
+    [
+        "v_chadui", "插隊", "chā duì", "ㄔㄚ ㄉㄨㄟˋ", "Kaynak yapmak / Sırayı bozmak", "To cut in line",
+        "在台灣插隊會被認為是非常不禮貌的行為。",
+        2, "Easy", "Daily Actions", "⛔",
+        "Colarse en la fila", "Vordrängeln", "Doubler la file", "Saltare la fila", "割り込む", "새치기하다", "Furar a fila", "लाइन तोड़ना",
+        "kaynak yap", "cut in line",
+        "隊伍", "duì wǔ", "ㄉㄨㄟˋ ㄨˇ", "👥", "Kuyruk", "line",
+        "排隊時請勿插隊", "pái duì shí qǐng wù chā duì", "ㄆㄞˊ ㄉㄨㄟˋ ㄕˊ ㄑㄧㄥˇ ㄨˋ ㄔㄚ ㄉㄨㄟˋ",
+        "Sıradayken lütfen araya kaynak yapmayınız", "Please do not cut in line while queuing"
+    ],
+    # 18. 讓座
+    [
+        "v_rangzuo", "讓座", "ràng zuò", "ㄖㄤˋ ㄗㄨㄛˋ", "Yer vermek (ulaşımda)", "To give up one's seat",
+        "在台灣搭公車或捷運，民眾經常主動為長輩讓座。",
+        2, "Easy", "Daily Actions", "💺",
+        "Ceder el asiento", "Den Platz anbieten", "Céder sa place", "Cedere il posto", "席を譲る", "자리를 양보하다", "Ceder o assento", "सीट छोड़ना",
+        "yer ver", "give up seat",
+        "博愛座", "bó ài zuò", "ㄅㄛˊ ㄞˋ ㄗㄨㄛˋ", "♿", "Öncelikli koltuk", "priority seat",
+        "他主動讓座給老奶奶", "tā zhǔ dòng ràng zuò gěi lǎo nǎi nai", "ㄊㄚ ㄓㄨˇ ㄉㄨㄥˋ ㄖㄤˋ ㄗㄨㄛˋ ㄍㄟˇ ㄌㄠˇ ㄋㄞˇ ˙ㄋㄞ",
+        "O yaşlı nineye gönüllü olarak yer verdi", "He proactively offered his seat to the elderly lady"
+    ],
+    # 19. 迷路
+    [
+        "v_milu", "迷路", "mí lù", "ㄇㄧˊ ㄌㄨˋ", "Yolunu kaybetmek", "To get lost",
+        "巷子裡很多美食，但第一次去容易迷路。",
+        1, "Easy", "Daily Actions", "🧭",
+        "Perderse", "Sich verlaufen", "Se perdre", "Perdersi", "道に迷う", "길을 잃다", "Perder-se", "रास्ता भटकना",
+        "kaybol", "get lost",
+        "方向", "fāng xiàng", "ㄈㄤ ㄒㄧㄤˋ", "🧭", "Yön", "direction",
+        "我在巷子裡迷路了", "wǒ zài xiàng zi lǐ mí lù le", "ㄨㄛˇ ㄗㄞˋ ㄒㄧㄤˋ ˙ㄗ ㄌㄧˇ ㄇㄧˊ ㄌㄨˋ ˙ㄌㄜ",
+        "Ara sokakta kayboldum", "I got lost in the alley"
+    ],
+    # 20. 問路
+    [
+        "v_wenlu", "問路", "wèn lù", "ㄨㄣˋ ㄌㄨˋ", "Yol sormak", "To ask for directions",
+        "在台灣問路，路人通常會非常熱心親切地指引。",
+        1, "Easy", "Daily Actions", "🗣️",
+        "Preguntar el camino", "Nach dem Weg fragen", "Demander son chemin", "Chiedere la strada", "道を尋ねる", "길을 묻다", "Perguntar pelo caminho", "रास्ता पूछना",
+        "yol sor", "ask directions",
+        "路人", "lù rén", "ㄌㄨˋ ㄖㄣˊ", "🚶", "Yoldan geçen", "passerby",
+        "我向路人問路", "wǒ xiàng lù rén wèn lù", "ㄨㄛˇ ㄒㄧㄤˋ ㄌㄨˋ ㄖㄣˊ ㄨㄣˋ ㄌㄨˋ",
+        "Yoldan geçen birine yol soruyorum", "I ask a passerby for directions"
+    ],
+    # 21. 導航
+    [
+        "v_daohang", "導航", "dǎo háng", "ㄉㄠˇ ㄏㄤˊ", "Navigasyon kullanmak", "To navigate",
+        "在台北騎機車或開車，手機導航非常實用。",
+        2, "Easy", "Daily Actions", "📱",
+        "Navegar", "Navigieren", "Naviguer", "Navigare", "ナビする", "내비게이션을 쓰다", "Navegar", "नेविगेट करना",
+        "navigasyon yap", "navigate",
+        "地圖", "dì tú", "ㄉㄧˋ ㄊㄨˊ", "🗺️", "Harita", "map",
+        "開啟手機導航", "kāi qǐ shǒu jī dǎo háng", "ㄎㄞ ㄑㄧˇ ㄕㄡˇ ㄐㄧ ㄉㄠˇ ㄏㄤˊ",
+        "Telefon navigasyonunu aç", "Open phone navigation"
+    ],
+    # 22. 租車
+    [
+        "v_zuche", "租車", "zū chē", "ㄗㄨ ㄔㄜ", "Araç kiralamak", "To rent a car / vehicle",
+        "在花蓮台東旅遊，很多旅客會選擇租車自駕。",
+        2, "Easy", "Travel & Transit", "🚗",
+        "Alquilar un auto", "Ein Auto mieten", "Louer une voiture", "Noleggiare un'auto", "レンタカーを借りる", "차를 렌트하다", "Alugar um carro", "गाड़ी किराए पर लेना",
+        "araç kirala", "rent a vehicle",
+        "機車", "jī chē", "ㄐㄧ ㄔㄜ", "🛵", "Motosiklet / Scooter", "scooter",
+        "我們租車去旅遊", "wǒ men zū chē qù lǚ yóu", "ㄨㄛˇ ㄇㄣ˙ ㄗㄨ ㄔㄜ ㄑㄩˋ ㄌㄩˇ ㄧㄡˊ",
+        "Gezmek için araç kiralıyoruz", "We rent a car to travel"
+    ],
+    # 23. 還車
+    [
+        "v_huanche", "還車", "huán chē", "ㄏㄨㄢˊ ㄔㄜ", "Aracı teslim etmek", "To return a rented vehicle",
+        "使用YouBike騎完後記得要到站點還車刷卡。",
+        2, "Easy", "Travel & Transit", "🚲",
+        "Devolver el vehículo", "Fahrzeug zurückgeben", "Rendre le véhicule", "Restituire l'auto", "車両を返却する", "차를 반납하다", "Devolver o veículo", "गाड़ी वापस करना",
+        "aracı teslim et", "return the vehicle",
+        "自行車", "zì xíng chē", "ㄗˋ ㄒㄧㄥˊ ㄔㄜ", "🚲", "Bisiklet", "bicycle",
+        "我騎去還車", "wǒ qí qù huán chē", "ㄨㄛˇ ㄑㄧˊ ㄑㄩˋ ㄏㄨㄢˊ ㄔㄜ",
+        "Bisikleti teslim etmeye sürüyorum", "I ride to return the bike"
+    ],
+    # 24. 加油
+    [
+        "v_jiayou", "加油", "jiā yóu", "ㄐㄧㄚ ㄧㄡˊ", "Yakıt almak / Gayret etmek", "To refuel / cheer on",
+        "在台灣加油常說「95加滿」；考試或比賽時也常用「加油」打氣！",
+        1, "Easy", "Daily Actions", "⛽",
+        "Cargar gasolina / ¡Ánimo!", "Tanken / Viel Erfolg!", "Faire le plein / Courage!", "Fare benzina / Forza!", "給油する / 頑張る", "주유하다 / 힘내다", "Abastecer / Força!", "ईंधन भरना / हौसला बढ़ाना",
+        "yakıt al", "refuel",
+        "機車", "jī chē", "ㄐㄧ ㄔㄜ", "🛵", "Scooter", "scooter",
+        "我去幫機車加油", "wǒ qù bāng jī chē jiā yóu", "ㄨㄛˇ ㄑㄩˋ ㄅㄤ ㄐㄧ ㄔㄜ ㄐㄧㄚ ㄧㄡˊ",
+        "Scootera yakıt almaya gidiyorum", "I am going to refuel the scooter"
+    ],
+    # 25. 換錢
+    [
+        "v_huanqian", "換錢", "huàn qián", "ㄏㄨㄢˋ ㄑㄧㄢˊ", "Para bozdurmak", "To exchange money",
+        "在台灣可以在各大銀行或機場櫃台換錢。",
+        1, "Easy", "Daily Actions", "💱",
+        "Cambiar dinero", "Geld wechseln", "Changer de l'argent", "Cambiare denaro", "両替する", "환전하다", "Trocar dinheiro", "पैसे बदलना",
+        "para bozdur", "exchange money",
+        "外幣", "wài bì", "ㄨㄞˋ ㄅㄧˋ", "💵", "Döviz", "foreign currency",
+        "我去銀行換錢", "wǒ qù yín háng huàn qián", "ㄨㄛˇ ㄑㄩˋ ㄧㄣˊ ㄏㄤˊ ㄏㄨㄢˋ ㄑㄧㄢˊ",
+        "Banka para bozdurmaya gidiyorum", "I go to the bank to exchange money"
+    ],
+    # 26. 聊
+    [
+        "v_liao", "聊", "liáo", "ㄌㄧㄠˊ", "Sohbet etmek", "To chat",
+        "台灣人喜歡邊喝珍珠奶茶邊跟朋友聊天。",
+        1, "Easy", "Daily Actions", "💬",
+        "Charlar", "Plaudern", "Bavarder", "Chiacchierare", "おしゃべりする", "이야기하다", "Conversar", "बातचीत करना",
+        "sohbet et", "chat",
+        "天", "tiān", "ㄊㄧㄢ", "☀️", "Gündelik konular", "chatting",
+        "我們一起聊聊天", "wǒ men yì qǐ liáo liao tiān", "ㄨㄛˇ ㄇㄣ˙ ㄧˋ ㄑㄧˇ ㄌㄧㄠˊ ˙ㄌㄧㄠ ㄊㄧㄢ",
+        "Birlikte sohbet edelim", "Let's chat together"
+    ],
+    # 27. 談
+    [
+        "v_tan", "談", "tán", "ㄊㄢˊ", "Konuşmak / Görüşmek", "To talk / discuss",
+        "商務場合常用「談合作」或「談生意」。",
+        2, "Easy", "Workplace", "🗣️",
+        "Hablar / Discutir", "Besprechen", "Discuter", "Discutere", "話し合う", "논의하다", "Tratar", "बात करना",
+        "konuş", "discuss",
+        "生意", "shēng yì", "ㄕㄥ ㄧˋ", "🤝", "İş", "business",
+        "他們在談生意", "tā men zài tán shēng yì", "ㄊㄚ ㄇㄣ˙ ㄗㄞˋ ㄊㄢˊ ㄕㄥ ㄧˋ",
+        "Onlar iş görüşmesi yapıyorlar", "They are discussing business"
+    ],
+    # 28. 叫
+    [
+        "v_jiao", "叫", "jiào", "ㄐㄧㄠˋ", "Adı olmak / Çağırmak", "To be called / to call",
+        "你叫什麼名字？在台灣也可以用APP叫計程車。",
+        1, "Easy", "Daily Actions", "📣",
+        "Llamarse / Llamar", "Heißen / Rufen", "S'appeler / Appeler", "Chiamarsi / Chiamare", "呼ぶ / 名乗る", "부르다 / 이름이다", "Chamar / Chamar-se", "पुकारना / नाम होना",
+        "çağır", "call",
+        "計程車", "jì chéng chē", "ㄐㄧˋ ㄔㄥˊ ㄔㄜ", "🚕", "Taksi", "taxi",
+        "我幫你叫車", "wǒ bāng nǐ jiào chē", "ㄨㄛˇ ㄅㄤ ㄋㄧˇ ㄐㄧㄠˋ ㄔㄜ",
+        "Sana araç çağırıyorum", "I call a ride for you"
+    ],
+    # 29. 喊
+    [
+        "v_han", "喊", "hǎn", "ㄏㄢˇ", "Bağırmak", "To yell / shout",
+        "夜市攤販經常大聲喊叫吸引客人。",
+        2, "Easy", "Daily Actions", "📢",
+        "Gritar", "Schreien / Rufen", "Crier", "Gridare", "叫ぶ", "소리치다", "Gritar", "चिल्लाना",
+        "bağır", "shout",
+        "口號", "kǒu hào", "ㄎㄡˇ ㄏㄠˋ", "📣", "Slogan", "slogan",
+        "大家一起大聲喊", "dà jiā yì qǐ dà shēng hǎn", "ㄉㄚˋ ㄐㄧㄚ ㄧˋ ㄑㄧˇ ㄉㄚˋ ㄕㄥ ㄏㄢˇ",
+        "Herkes birlikte yüksek sesle bağırıyor", "Everyone shouts loudly together"
+    ],
+    # 30. 說明
+    [
+        "v_shuoming", "說明", "shuō míng", "ㄕㄨㄛ ㄇㄧㄥˊ", "Açıklamak / İzah etmek", "To explain / illustrate",
+        "開會前主持人會先說明本次會議的重點。",
+        2, "Easy", "Workplace", "📑",
+        "Explicar", "Erklären", "Expliquer", "Spiegare", "説明する", "설명하다", "Explicar", "समझाना",
+        "açıkla", "explain",
+        "情況", "qíng kuàng", "ㄑㄧㄥˊ ㄎㄨㄤˋ", "📊", "Durum", "situation",
+        "請向大家說明情況", "qǐng xiàng dà jiā shuō míng qíng kuàng", "ㄑㄧㄥˇ ㄒㄧㄤˋ ㄉㄚˋ ㄐㄧㄚ ㄕㄨㄛ ㄇㄧㄥˊ ㄑㄧㄥˊ ㄎㄨㄤˋ",
+        "Lütfen durumu herkese açıklayınız", "Please explain the situation to everyone"
+    ],
+    # 31. 解釋
+    [
+        "v_jieshi", "解釋", "jiě shì", "ㄐㄧㄝˇ ㄕˋ", "Açıklamak", "To clarify / interpret",
+        "如果有任何誤會，最好立刻當面解釋清楚。",
+        2, "Easy", "Daily Actions", "💡",
+        "Aclarar", "Erläutern", "Clarifier", "Chiarire", "解釈する", "해명하다", "Esclarecer", "स्पष्ट करना",
+        "izah et", "clarify",
+        "原因", "yuán yīn", "ㄩㄢˊ ㄧㄣ", "🔍", "Sebep", "reason",
+        "他耐心地解釋原因", "tā nài xīn de jiě shì yuán yīn", "ㄊㄚ ㄋㄞˋ ㄒㄧㄣ ˙ㄉㄜ ㄐㄧㄝˇ ㄕˋ ㄩㄢˊ ㄧㄣ",
+        "O sabırla sebebini açıklıyor", "He patiently explains the reason"
+    ],
+    # 32. 答應
+    [
+        "v_daying", "答應", "dā yìng", "ㄉㄚ ㄧㄥˋ", "Söz vermek / Kabul etmek", "To promise / agree",
+        "答應別人的事，一定要信守承諾。",
+        2, "Easy", "Daily Actions", "🤝",
+        "Prometer / Aceptar", "Versprechen / Zusagen", "Promettre / Accepter", "Promettere", "約束する / 承諾する", "약속하다", "Prometer", "वादा करना",
+        "söz ver", "promise",
+        "請求", "qǐng qiú", "ㄑㄧㄥˇ ㄑㄧㄡˊ", "🙏", "Rica / İstek", "request",
+        "他答應了我的請求", "tā dā yìng le wǒ de qǐng qiú", "ㄊㄚ ㄉㄚ ㄧㄥˋ ˙ㄌㄜ ㄨㄛˇ ˙ㄉㄜ ㄑㄧㄥˇ ㄑㄧㄡˊ",
+        "O benim ricamı kabul etti", "He agreed to my request"
+    ],
+    # 33. 拒絕
+    [
+        "v_jujue", "拒絕", "jù jué", "ㄐㄩˋ ㄐㄩㄝˊ", "Reddetmek", "To refuse / decline",
+        "婉轉拒絕在台灣職場是一門重要的禮貌藝術。",
+        2, "Easy", "Daily Actions", "🙅",
+        "Rechazar", "Ablehnen", "Refuser", "Rifiutare", "断る", "거절하다", "Recusar", "इनकार करना",
+        "reddet", "refuse",
+        "提議", "tí yì", "ㄊㄧˊ ㄧˋ", "💡", "Teklif / Öneri", "proposal",
+        "禮貌地拒絕提議", "lǐ mào de jù jué tí yì", "ㄌㄧˇ ㄇㄠˋ ˙ㄉㄜ ㄐㄩˋ ㄐㄩㄝˊ ㄊㄧˊ ㄧˋ",
+        "Teklifi kibarca reddetmek", "Politely decline the proposal"
+    ],
+    # 34. 道歉
+    [
+        "v_daoqian", "道歉", "dào qiàn", "ㄉㄠˋ ㄑㄧㄢˋ", "Özür dilemek", "To apologize",
+        "在台灣不小心撞到人，立刻說不好意思或道歉是常態。",
+        2, "Easy", "Daily Actions", "🙇",
+        "Disculparse", "Sich entschuldigen", "S'excuser", "Chiedere scusa", "謝罪する", "사과하다", "Pedir desculpas", "माफ़ी मांगना",
+        "özür dile", "apologize",
+        "誠意", "chéng yì", "ㄔㄥˊ ㄧˋ", "❤️", "Samimiyet", "sincerity",
+        "他真誠地向朋友道歉", "tā zhēn chéng de xiàng péng yǒu dào qiàn", "ㄊㄚ ㄓㄣ ㄔㄥˊ ˙ㄉㄜ ㄒㄧㄤˋ ㄆㄥˊ ㄧㄡˇ ㄉㄠˋ ㄑㄧㄢˋ",
+        "O içtenlikle arkadaşından özür diliyor", "He sincerely apologizes to his friend"
+    ],
+    # 35. 道謝
+    [
+        "v_daoxie", "道謝", "dào xiè", "ㄉㄠˋ ㄒㄧㄝˋ", "Teşekkür etmek", "To thank / express gratitude",
+        "受到別人幫助時，台灣人一定會熱情道謝。",
+        2, "Easy", "Daily Actions", "🙏",
+        "Agradecer", "Sich bedanken", "Remercier", "Ringraziare", "お礼を言う", "감사를 표하다", "Agradecer", "धन्यवाद देना",
+        "teşekkür et", "thank",
+        "恩情", "ēn qíng", "ㄣ ㄑㄧㄥˊ", "🌸", "İyilik", "kindness",
+        "我們向老師道謝", "wǒ men xiàng lǎo shī dào xiè", "ㄨㄛˇ ㄇㄣ˙ ㄒㄧㄤˋ ㄌㄠˇ ㄕ ㄉㄠˋ ㄒㄧㄝˋ",
+        "Biz öğretmenimize teşekkür ediyoruz", "We express our gratitude to the teacher"
+    ],
+    # 36. 恭喜
+    [
+        "v_gongxi", "恭喜", "gōng xǐ", "ㄍㄨㄥ ㄒㄧˇ", "Tebrik etmek", "To congratulate",
+        "新年見面時常說「恭喜發財」，喜慶祥和。",
+        1, "Easy", "Culture & Society", "🎉",
+        "Felicitar", "Gratulieren", "Féliciter", "Congratularsi", "祝う", "축하하다", "Parabenizar", "बधाई देना",
+        "tebrik et", "congratulate",
+        "新人", "xīn rén", "ㄒㄧㄣ ㄖㄣˊ", "💍", "Yeni evliler", "newlyweds",
+        "恭喜你順利畢業", "gōng xǐ nǐ shùn lì bì yè", "ㄍㄨㄥ ㄒㄧˇ ㄋㄧˇ ㄕㄨㄣˋ ㄌㄧˋ ㄅㄧˋ ㄧㄝˋ",
+        "Mezuniyetini tebrik ederim", "Congratulations on your graduation"
+    ],
+    # 37. 祝福
+    [
+        "v_zhufu", "祝福", "zhù fú", "ㄓㄨˋ ㄈㄨˊ", "İyi dileklerde bulunmak", "To bless / wish well",
+        "在朋友生日或婚禮上，大家會送上滿滿的祝福。",
+        2, "Easy", "Daily Actions", "✨",
+        "Bendecir / Desear lo mejor", "Segnen / Beglückwünschen", "Bénir / Souhaiter du bien", "Benedire / Augurare", "祝福する", "축복하다", "Abençoar", "शुभकामनाएं देना",
+        "iyi dilekte bulun", "bless",
+        "平安", "píng ān", "ㄆㄧㄥˊ ㄢ", "🕊️", "Huzur / Esenlik", "peace and safety",
+        "祝福大家平安健康", "zhù fú dà jiā píng ān jiàn kāng", "ㄓㄨˋ ㄈㄨˊ ㄉㄚˋ ㄐㄧㄚ ㄆㄧㄥˊ ㄢ ㄐㄧㄢˋ ㄎㄤ",
+        "Hepinize sağlık ve esenlik dilerim", "Wishing everyone peace and health"
+    ],
+    # 38. 抱怨
+    [
+        "v_baoyuan", "抱怨", "bào yuàn", "ㄅㄠˋ ㄩㄢˋ", "Şikayet etmek", "To complain",
+        "遇到困難時積極面對，少抱怨多做事。",
+        3, "Medium", "Daily Actions", "😤",
+        "Quejarse", "Sich beschweren", "Se plaindre", "Lamentarsi", "文句を言う", "불평하다", "Reclamar", "शिकायत करना",
+        "şikayet et", "complain",
+        "天氣", "tiān qì", "ㄊㄧㄢ ㄑㄧˋ", "🌧️", "Hava durumu", "weather",
+        "他總是抱怨天氣太熱", "tā zǒng shì bào yuàn tiān qì tài rè", "ㄊㄚ ㄗㄨㄥˇ ㄕˋ ㄅㄠˋ ㄩㄢˋ ㄊㄧㄢ ㄑㄧˋ ㄊㄞˋ ㄖㄜˋ",
+        "O sürekli havanın çok sıcak olmasından şikayet ediyor", "He always complains about the weather being too hot"
+    ],
+    # 39. 批評
+    [
+        "v_piping", "批評", "pī píng", "ㄆㄧ ㄆㄧㄥˊ", "Eleştirmek", "To criticize",
+        "虛心接受別人的善意批評能讓自己進步。",
+        3, "Medium", "Workplace", "🧐",
+        "Criticar", "Kritisieren", "Critiquer", "Criticare", "批判する", "비판하다", "Criticar", "आलोचना करना",
+        "eleştir", "criticize",
+        "缺點", "quē diǎn", "ㄑㄩㄝ ㄉㄧㄢˇ", "⚠️", "Eksiklik", "shortcomings",
+        "老師客觀地批評作品", "lǎo shī kè guān de pī píng zuò pǐn", "ㄌㄠˇ ㄕ ㄎㄜˋ ㄍㄨㄢ ˙ㄉㄜ ㄆㄧ ㄆㄧㄥˊ ㄗㄨㄛˋ ㄆㄧㄣˇ",
+        "Öğretmen eserleri tarafsızca eleştiriyor", "The teacher objectively criticizes the works"
+    ],
+    # 40. 表揚
+    [
+        "v_biaoyang", "表揚", "biǎo yáng", "ㄅㄧㄠˇ ㄧㄤˊ", "Takdir etmek / Övmek", "To praise / commend",
+        "學生表現優異時，學校會在朝會上公開表揚。",
+        3, "Medium", "Education", "🏆",
+        "Elogiar", "Loben", "Féliciter", "Elogiare", "表彰する", "칭찬하다", "Elogiar", "सराहना करना",
+        "takdir et", "commend",
+        "模範", "mó fàn", "ㄇㄛˊ ㄈㄢˋ", "🎖️", "Örnek", "model/exemplar",
+        "校長表揚優秀學生", "xiào zhǎng biǎo yáng yōu xiù xué shēng", "ㄒㄧㄠˋ ㄓㄤˇ ㄅㄧㄠˇ ㄧㄤˊ ㄧㄡ ㄒㄧㄡˋ ㄒㄩㄝˊ ㄕㄥ",
+        "Okul müdürü başarılı öğrencileri takdir ediyor", "The principal commends outstanding students"
+    ],
+    # 41. 誇獎
+    [
+        "v_kuajiang", "誇獎", "kuā jiǎng", "ㄎㄨㄚ ㄐㄧㄤˇ", "Övmek / İltifat etmek", "To compliment / praise",
+        "聽到外國人中文說得好，台灣人總是熱情誇獎。",
+        2, "Easy", "Daily Actions", "👏",
+        "Alabar / Halagar", "Loben / Schmeicheln", "Complimenter", "Lodare", "褒める", "칭찬하다", "Elogiar", "प्रशंसा करना",
+        "öv", "praise",
+        "進步", "jìn bù", "ㄐㄧㄣˋ ㄅㄨˋ", "📈", "Gelişim", "progress",
+        "大家都誇獎他的廚藝", "dà jiā dōu kuā jiǎng tā de chú yì", "ㄉㄚˋ ㄐㄧㄚ ㄉㄡ ㄎㄨㄚ ㄐㄧㄤˇ ㄊㄚ ˙ㄉㄜ ㄔㄨˊ ㄧˋ",
+        "Herkes onun yemek yapma becerisini övüyor", "Everyone compliments his culinary skills"
+    ],
+    # 42. 勸
+    [
+        "v_quan", "勸", "quàn", "ㄑㄩㄢˋ", "Nasihat etmek / İkna etmek", "To advise / urge",
+        "朋友心情低落時，我們會好好勸解安慰。",
+        3, "Medium", "Daily Actions", "🗣️",
+        "Aconsejar", "Ermahnen / Raten", "Conseiller", "Consigliare", "勧める", "타이르다", "Aconselhar", "सलाह देना",
+        "nasihat et", "urge",
+        "對方", "duì fāng", "ㄉㄨㄟˋ ㄈㄤ", "👤", "Karşı taraf", "the other party",
+        "我勸他早點休息", "wǒ quàn tā zǎo diǎn xiū xi", "ㄨㄛˇ ㄑㄩㄢˋ ㄊㄚ ㄗㄠˇ ㄉㄧㄢˇ ㄒㄧㄡ ˙ㄒㄧ",
+        "Ona erken dinlenmesini tavsiye ediyorum", "I urge him to rest early"
+    ],
+    # 43. 打招呼
+    [
+        "v_dazhaohu", "打招呼", "dǎ zhāo hū", "ㄉㄚˇ ㄓㄠ ㄏㄨ", "Selam vermek", "To greet",
+        "早晨走在台灣的社區，鄰居彼此親切打招呼。",
+        1, "Easy", "Daily Actions", "👋",
+        "Saludar", "Grüßen", "Saluer", "Salutare", "挨拶する", "인사하다", "Cumprimentar", "अभिवादन करना",
+        "selam ver", "greet",
+        "鄰居", "lín jū", "ㄌㄧㄣˊ ㄐㄩ", "🏘️", "Komşu", "neighbor",
+        "大家微笑打招呼", "dà jiā wēi xiào dǎ zhāo hū", "ㄉㄚˋ ㄐㄧㄚ ㄨㄟ ㄒㄧㄠˋ ㄉㄚˇ ㄓㄠ ㄏㄨ",
+        "Herkes gülümseyerek selam veriyor", "Everyone greets each other with a smile"
+    ],
+    # 44. 擁抱
+    [
+        "v_yongbao", "擁抱", "yǒng bào", "ㄩㄥˇ ㄅㄠˋ", "Sarılmak", "To hug / embrace",
+        "久違的好友在機場相見，熱情地緊緊擁抱。",
+        2, "Easy", "Daily Actions", "🤗",
+        "Abrazar", "Umarmen", "Embrasser / Étreindre", "Abbracciare", "抱きしめる", "포옹하다", "Abraçar", "गले लगाना",
+        "sarıl", "hug",
+        "朋友", "péng yǒu", "ㄆㄥˊ ㄧㄡˇ", "👫", "Arkadaş", "friend",
+        "他們熱情地擁抱", "tā men rè qíng de yǒng bào", "ㄊㄚ ㄇㄣ˙ ㄖㄜˋ ㄑㄧㄥˊ ˙ㄉㄜ ㄩㄥˇ ㄅㄠˋ",
+        "Onlar coşkuyla sarılıyorlar", "They hug warmly"
+    ],
+    # 45. 接吻
+    [
+        "v_jiewen", "接吻", "jiē wěn", "ㄐㄧㄝ ㄨㄣˇ", "Öpüşmek", "To kiss",
+        "浪漫電影的高潮常是男女主角深情接吻。",
+        2, "Easy", "Daily Actions", "💋",
+        "Besar", "Küssen", "S'embrasser", "Baciare", "キスする", "키스하다", "Beijar", "चूमना",
+        "öpüş", "kiss",
+        "愛人", "ài rén", "ㄞˋ ㄖㄣˊ", "💑", "Sevgili", "lover",
+        "戀人在夕陽下接吻", "liàn rén zài xī yáng xià jiē wěn", "ㄌㄧㄢˋ ㄖㄣˊ ㄗㄞˋ ㄒㄧ ㄧㄤˊ ㄒㄧㄚˋ ㄐㄧㄝ ㄨㄣˇ",
+        "Aşıklar gün batımında öpüşüyor", "The lovers kiss under the sunset"
+    ],
+    # 46. 約會
+    [
+        "v_yuehui", "約會", "yuē huì", "ㄩㄝ ㄏㄨㄟˋ", "Randevulaşmak / Çıkmak", "To date / go on a date",
+        "很多年輕情侶喜歡在淡水碼頭散步約會看夕陽。",
+        1, "Easy", "Daily Actions", "🌹",
+        "Tener una cita", "Ausgehen / Daten", "Avoir un rendez-vous", "Avere un appuntamento", "デートする", "데이트하다", "Ter um encontro", "डेट पर जाना",
+        "randevulaş", "date",
+        "對象", "duì xiàng", "ㄉㄨㄟˋ ㄒㄧㄤˋ", "🧑‍🤝‍🧑", "Partner / Aday", "partner",
+        "我們今晚去約會", "wǒ men jīn wǎn qù yuē huì", "ㄨㄛˇ ㄇㄣ˙ ㄐㄧㄣ ㄨㄢˇ ㄑㄩˋ ㄩㄝ ㄏㄨㄟˋ",
+        "Bu akşam randevuya çıkıyoruz", "We are going on a date tonight"
+    ],
+    # 47. 聚會
+    [
+        "v_juhui", "聚會", "jù huì", "ㄐㄩˋ ㄏㄨㄟˋ", "Toplanmak / Buluşmak", "To gather / meet up",
+        "週末台灣人常和三五好友在熱炒店聚會暢談。",
+        2, "Easy", "Daily Actions", "🍻",
+        "Reunirse", "Sich versammeln", "Se rassembler", "Riunirsi", "集まる", "모이다", "Reunir-se", "इकट्ठा होना",
+        "toplan", "gather",
+        "好友", "hǎo yǒu", "ㄏㄠˇ ㄧㄡˇ", "👥", "Yakın arkadaşlar", "good friends",
+        "大家週末一起聚會", "dà jiā zhōu mò yì qǐ jù huì", "ㄉㄚˋ ㄐㄧㄚ ㄓㄡ ㄇㄛˋ ㄧˋ ㄑㄧˇ ㄐㄩˋ ㄏㄨㄟˋ",
+        "Herkes hafta sonu toplanıyor", "Everyone gathers together on the weekend"
+    ],
+    # 48. 拜訪
+    [
+        "v_baifang", "拜訪", "bài fǎng", "ㄅㄞˋ ㄈㄤˇ", "Ziyaret etmek (kişi)", "To pay a visit",
+        "到台灣朋友家拜訪時，帶上一盒伴手禮是基本禮節。",
+        2, "Easy", "Daily Actions", "🚪",
+        "Visitar a alguien", "Besuchen", "Rendre visite", "Fare visita", "訪問する", "방문하다", "Visitar", "भेंट करना",
+        "ziyaret et", "visit someone",
+        "親戚", "qīn qī", "ㄑㄧㄣ ㄑㄧ", "👨‍👩‍👦", "Akraba", "relatives",
+        "春節去拜訪親戚", "chūn jié qù bài fǎng qīn qī", "ㄔㄨㄣ ㄐㄧㄝˊ ㄑㄩˋ ㄅㄞˋ ㄈㄤˇ ㄑㄧㄣ ㄑㄧ",
+        "Bahar Bayramı'nda akrabaları ziyaret ediyoruz", "Visiting relatives during the Spring Festival"
+    ],
+    # 49. 招待
+    [
+        "v_zhaodai", "招待", "zhāo dài", "ㄓㄠ ㄉㄞˋ", "Ağırlamak / İkram etmek", "To entertain / treat",
+        "台灣人以好客聞名，總是熱情招待遠道而來的客人。",
+        2, "Easy", "Daily Actions", "🍵",
+        "Atender / Agasajar", "Bewirten", "Recevoir / Traiter", "Accogliere / Offrire", "もてなす", "대접하다", "Hospedar / Tratar", "सत्कार करना",
+        "ağırla", "entertain / treat",
+        "客人", "kè rén", "ㄎㄜˋ ㄖㄣˊ", "🧑‍🤝‍🧑", "Misafir", "guests",
+        "主人熱情招待客人", "zhǔ rén rè qíng zhāo dài kè rén", "ㄓㄨˇ ㄖㄣˊ ㄖㄜˋ ㄑㄧㄥˊ ㄓㄠ ㄉㄞˋ ㄎㄜˋ ㄖㄣˊ",
+        "Ev sahibi misafirleri sıcak şekilde ağırlıyor", "The host warmly entertains the guests"
+    ],
+    # 50. 陪
+    [
+        "v_pei", "陪", "péi", "ㄆㄟˊ", "Eşlik etmek", "To accompany",
+        "假日陪家人逛逛夜市散步，是台灣人最愜意的時光。",
+        1, "Easy", "Daily Actions", "🤝",
+        "Acompañar", "Begleiten", "Accompagner", "Accompagnare", "付き添う", "함께하다", "Acompanhar", "साथ देना",
+        "eşlik et", "accompany",
+        "家人", "jiā rén", "ㄐㄧㄚ ㄖㄣˊ", "👨‍👩‍👧", "Aile", "family",
+        "我陪媽媽去市場", "wǒ péi mā ma qù shì chǎng", "ㄨㄛˇ ㄆㄟˊ ㄇㄚ ˙ㄇㄚ ㄑㄩˋ ㄕˋ ㄔㄤˇ",
+        "Ben anneme pazara eşlik ediyorum", "I accompany my mom to the market"
+    ],
+    # 51. 吵架
+    [
+        "v_chaojia", "吵架", "chǎo jià", "ㄔㄠˇ ㄐㄧㄚˋ", "Ağız kavgası etmek", "To quarrel",
+        "情侶相處難免吵架，及時溝通才能長久。",
+        2, "Easy", "Daily Actions", "💢",
+        "Pelear / Discutir", "Streiten", "Se disputer", "Litigare", "喧嘩する", "말다툼하다", "Discutir / Brigar", "झगड़ना",
+        "kavga et", "quarrel",
+        "原因", "yuán yīn", "ㄩㄢˊ ㄧㄣ", "❓", "Sebep", "reason",
+        "他們常常為小事吵架", "tā men cháng cháng wèi xiǎo shì chǎo jià", "ㄊㄚ ㄇㄣ˙ ㄔㄤˊ ㄔㄤˊ ㄨㄟˋ ㄒㄧㄠˇ ㄕˋ ㄔㄠˇ ㄐㄧㄚˋ",
+        "Onlar sık sık ufak şeyler için tartışırlar", "They often quarrel over trivial matters"
+    ],
+    # 52. 和好
+    [
+        "v_hehao", "和好", "hé hǎo", "ㄏㄜˊ ㄏㄠˇ", "Barışmak", "To make up / reconcile",
+        "經過懇切談心後，冷戰的朋友終於和好了。",
+        2, "Easy", "Daily Actions", "🤝",
+        "Reconciliarse", "Sich versöhnen", "Se réconcilier", "Fare la pace", "仲直りする", "화해하다", "Fazer as pazes", "सुलह करना",
+        "barış", "make up",
+        "朋友", "péng yǒu", "ㄆㄥˊ ㄧㄡˇ", "👫", "Arkadaş", "friend",
+        "他們握手和好", "tā men wò shǒu hé hǎo", "ㄊㄚ ㄇㄣ˙ ㄨㄛˋ ㄕㄡˇ ㄏㄜˊ ㄏㄠˇ",
+        "El sıkışıp barışıyorlar", "They shake hands and make up"
+    ],
+    # 53. 分手
+    [
+        "v_fenshou", "分手", "fēn shǒu", "ㄈㄣ ㄕㄡˇ", "Ayrılmak (ilişki)", "To break up",
+        "和平分手也是一種成熟體面的生活態度。",
+        2, "Easy", "Daily Actions", "💔",
+        "Romper / Separarse", "Schluss machen", "Rompre", "Lasciarsi", "別れる", "헤어지다", "Terminar", "ब्रेकअप करना",
+        "ayrıl", "break up",
+        "伴侶", "bàn lǚ", "ㄅㄢˋ ㄌㄩˇ", "👤", "Partner", "partner",
+        "他們決定和平分手", "tā men jué dìng hé píng fēn shǒu", "ㄊㄚ ㄇㄣ˙ ㄐㄩㄝˊ ㄉㄧㄥˋ ㄏㄜˊ ㄆㄧㄥˊ ㄈㄣ ㄕㄡˇ",
+        "Onlar barışçıl bir şekilde ayrılmaya karar verdiler", "They decided to break up amicably"
+    ],
+    # 54. 結婚
+    [
+        "v_jiehun", "結婚", "jié hūn", "ㄐㄧㄝˊ ㄏㄨㄣ", "Evlenmek", "To get married",
+        "台灣在2019年成為亞洲首個同性婚姻合法化的地區。",
+        1, "Easy", "Culture & Society", "💒",
+        "Casarse", "Heiraten", "Se marier", "Sposarsi", "結婚する", "결혼하다", "Casar-se", "शादी करना",
+        "evlen", "marry",
+        "新人", "xīn rén", "ㄒㄧㄣ ㄖㄣˊ", "👰", "Yeni çift", "couple",
+        "他們下個月要結婚", "tā men xià ge yuè yào jié hūn", "ㄊㄚ ㄇㄣ˙ ㄒㄧㄚˋ ˙ㄍㄜ ㄩㄝˋ ㄧㄠˋ ㄐㄧㄝˊ ㄏㄨㄣ",
+        "Gelecek ay evlenecekler", "They are getting married next month"
+    ],
+    # 55. 追求
+    [
+        "v_zhuiqiu", "追求", "zhuī qiú", "ㄓㄨㄟ ㄑㄧㄡˊ", "Peşinden koşmak / Çıkma teklifi kovalamak", "To pursue",
+        "勇敢追求自己的理想和幸福，不留遺憾。",
+        3, "Medium", "Daily Actions", "🎯",
+        "Perseguir / Cortejar", "Verfolgen / Umwerben", "Poursuivre / Courtiser", "Inseguire / Corteggiare", "追求する", "추구하다", "Perseguir", "पीछा करना",
+        "peşinden koş", "pursue",
+        "夢想", "mèng xiǎng", "ㄇㄥˋ ㄒㄧㄤˇ", "⭐", "Hayal", "dream",
+        "青年勇敢追求夢想", "qīng nián yǒng gǎn zhuī qiú mèng xiǎng", "ㄑㄧㄥ ㄋㄧㄢˊ ㄩㄥˇ ㄍㄢˇ ㄓㄨㄟ ㄑㄧㄡˊ ㄇㄥˋ ㄒㄧㄤˇ",
+        "Gençler cesurca hayallerinin peşinden koşuyor", "Youth bravely pursue their dreams"
+    ],
+    # 56. 告白
+    [
+        "v_gaobai", "告白", "gào bái", "ㄍㄠˋ ㄅㄞˊ", "Aşkını ilan etmek", "To confess love",
+        "在情人節鼓起勇氣向心儀的人告白。",
+        2, "Easy", "Daily Actions", "💌",
+        "Declararse / Confesar amor", "Gestehen", "Déclarer sa flamme", "Dichiararsi", "告白する", "고백하다", "Declarar-se", "प्यार का इज़हार करना",
+        "aşkını ilan et", "confess love",
+        "心意", "xīn yì", "ㄒㄧㄣ ㄧˋ", "💖", "Duygular", "feelings",
+        "他向心上人告白", "tā xiàng xīn shàng rén gào bái", "ㄊㄚ ㄒㄧㄤˋ ㄒㄧㄣ ㄕㄤˋ ㄖㄣˊ ㄍㄠˋ ㄅㄞˊ",
+        "O sevdiğine aşkını ilan etti", "He confessed his love to his sweetheart"
+    ],
+    # 57. 開玩笑
+    [
+        "v_kaiwanxiao", "開玩笑", "kāi wán xiào", "ㄎㄞ ㄨㄢˊ ㄒㄧㄠˋ", "Şaka yapmak", "To joke",
+        "適度的開玩笑可以活躍氣氛，但注意分寸。",
+        1, "Easy", "Daily Actions", "😄",
+        "Broma / Bromear", "Scherzen", "Plaisanter", "Scherzare", "冗談を言う", "농담하다", "Brincar", "मज़ाक करना",
+        "şaka yap", "joke",
+        "朋友", "péng yǒu", "ㄆㄥˊ ㄧㄡˇ", "🤡", "Arkadaş", "friend",
+        "我只是在開玩笑", "wǒ zhǐ shì zài kāi wán xiào", "ㄨㄛˇ ㄓˇ ㄕˋ ㄗㄞˋ ㄎㄞ ㄨㄢˊ ㄒㄧㄠˋ",
+        "Ben sadece şaka yapıyorum", "I was just joking"
+    ],
+    # 58. 上班
+    [
+        "v_shangban", "上班", "shàng bān", "ㄕㄤˋ ㄅㄢ", "İşe gitmek", "To go to work",
+        "台北的早晨，捷運擠滿了搭車上班的上班族。",
+        1, "Easy", "Workplace", "💼",
+        "Ir al trabajo", "Zur Arbeit gehen", "Aller au travail", "Andare al lavoro", "出勤する", "출근하다", "Ir trabalhar", "काम पर जाना",
+        "işe git", "go to work",
+        "公司", "gōng sī", "ㄍㄨㄥ ㄙ", "🏢", "Şirket", "company",
+        "我每天準時上班", "wǒ měi tiān zhǔn shí shàng bān", "ㄨㄛˇ ㄇㄟˇ ㄊㄧㄢ ㄓㄨㄣˇ ㄕˊ ㄕㄤˋ ㄅㄢ",
+        "Her gün işe vaktinde giderim", "I go to work on time every day"
+    ],
+    # 59. 下班
+    [
+        "v_xiaban", "下班", "xià bān", "ㄒㄧㄚˋ ㄅㄢ", "İşten çıkmak", "To get off work",
+        "下班後跟同事去夜市吃碗牛肉麵最舒壓。",
+        1, "Easy", "Workplace", "🕔",
+        "Salir del trabajo", "Feierabend machen", "Quitter le travail", "Staccare dal lavoro", "退勤する", "퇴근하다", "Sair do trabalho", "छुट्टी होना",
+        "işten çık", "get off work",
+        "同事", "tóng shì", "ㄊㄨㄥˊ ㄕˋ", "👥", "Meslektaş", "colleagues",
+        "我們六點準時下班", "wǒ men liù diǎn zhǔn shí xià bān", "ㄨㄛˇ ㄇㄣ˙ ㄌㄧㄡˋ ㄉㄧㄢˇ ㄓㄨㄣˇ ㄕˊ ㄒㄧㄚˋ ㄅㄢ",
+        "Biz saat altıda tam zamanında işten çıkıyoruz", "We get off work punctually at six"
+    ],
+    # 60. 加班
+    [
+        "v_jiaban", "加班", "jiā bān", "ㄐㄧㄚ ㄅㄢ", "Fazla mesai yapmak", "To work overtime",
+        "科技業專案上線前，工程師常常需要加班趕工。",
+        2, "Easy", "Workplace", "⏰",
+        "Hacer horas extra", "Überstunden machen", "Faire des heures sup", "Fare gli straordinari", "残業する", "야근하다", "Fazer hora extra", "अतिरिक्त समय काम करना",
+        "mesaiye kal", "work overtime",
+        "專案", "zhuān àn", "ㄓㄨㄢ ㄢˋ", "💻", "Proje", "project",
+        "工程師今天加班", "gōng chéng shī jīn tiān jiā bān", "ㄍㄨㄥ ㄔㄥˊ ㄕ ㄐㄧㄣ ㄊㄧㄢ ㄐㄧㄚ ㄅㄢ",
+        "Mühendisler bugün mesaiye kalıyor", "Engineers are working overtime today"
+    ],
+    # 61. 請假
+    [
+        "v_qingjia", "請假", "qǐng jià", "ㄑㄧㄥˇ ㄐㄧㄚˋ", "İzin almak", "To ask for leave",
+        "身體不舒服時，要及時向主管請假休息。",
+        2, "Easy", "Workplace", "📋",
+        "Pedir permiso", "Urlaub/Frei nehmen", "Poser un congé", "Chiedere un permesso", "休暇を取る", "휴가를 내다", "Pedir folga", "छुट्टी मांगना",
+        "izin al", "take leave",
+        "病假", "bìng jià", "ㄅㄧㄥˋ ㄐㄧㄚˋ", "🤒", "Hastalık izni", "sick leave",
+        "他今天向公司請假", "tā jīn tiān xiàng gōng sī qǐng jià", "ㄊㄚ ㄐㄧㄣ ㄊㄧㄢ ㄒㄧㄤˋ ㄍㄨㄥ ㄙ ㄑㄧㄥˇ ㄐㄧㄚˋ",
+        "O bugün şirketten izin aldı", "He took leave from the company today"
+    ],
+    # 62. 簽約
+    [
+        "v_qianyue", "簽約", "qiān yuē", "ㄑㄧㄢ ㄩㄝ", "Sözleşme imzalamak", "To sign a contract",
+        "在台灣租屋時，雙方會確認租賃契約並正式簽約。",
+        2, "Easy", "Workplace", "✒️",
+        "Firmar contrato", "Vertrag unterzeichnen", "Signer un contrat", "Firmare il contratto", "契約を結ぶ", "계약하다", "Assinar contrato", "अनुबंध पर हस्ताक्षर करना",
+        "sözleşme imzala", "sign contract",
+        "合約", "hé yuē", "ㄏㄜˊ ㄩㄝ", "📜", "Sözleşme", "contract",
+        "雙方正式簽約", "shuāng fāng zhèng shì qiān yuē", "ㄕㄨㄤ ㄈㄤ ㄓㄥˋ ㄕˋ ㄑㄧㄢ ㄩㄝ",
+        "Her iki taraf resmi olarak sözleşme imzaladı", "Both parties officially signed the contract"
+    ],
+    # 63. 蓋章
+    [
+        "v_gaizhang", "蓋章", "gài zhāng", "ㄍㄞˋ ㄓㄤ", "Mühür basmak", "To stamp / seal",
+        "在台灣辦理公務或金融手續，個人印章非常關鍵。",
+        2, "Easy", "Workplace", "🔏",
+        "Sellar / Estampar sello", "Stempeln", "Tamponner / Sceller", "Mettere il timbro", "捺印する", "도장을 찍다", "Carimbar", "मुहर लगाना",
+        "mühür bas", "stamp",
+        "印章", "yìn zhāng", "ㄧㄣˋ ㄓㄤ", "🏮", "Kişisel mühür", "personal seal",
+        "請在表格上蓋章", "qǐng zài biǎo gé shàng gài zhāng", "ㄑㄧㄥˇ ㄗㄞˋ ㄅㄧㄠˇ ㄍㄜˊ ㄕㄤˋ ㄍㄞˋ ㄓㄤ",
+        "Lütfen forma mühür basınız", "Please stamp on the form"
+    ],
+    # 64. 審核
+    [
+        "v_shenhe", "審核", "shěn hé", "ㄕㄣˇ ㄏㄜˊ", "İncelemek / Denetlemek", "To audit / review",
+        "信用卡或貸款申請需要經由專員仔細審核。",
+        3, "Medium", "Workplace", "🧐",
+        "Auditar / Revisar", "Prüfen / Auditieren", "Auditer / Vérifier", "Revisionare", "審査する", "심사하다", "Auditar", "समीक्षा करना",
+        "incele", "audit",
+        "資格", "zī gé", "ㄗ ㄍㄜˊ", "📑", "Nitelik / Yetki", "qualifications",
+        "主管正在審核文件", "zhǔ guǎn zhèng zài shěn hé wén jiàn", "ㄓㄨˇ ㄍㄨㄢˇ ㄓㄥˋ ㄗㄞˋ ㄕㄣˇ ㄏㄜˊ ㄨㄣˊ ㄐㄧㄢˋ",
+        "Yönetici belgeleri inceliyor", "The manager is reviewing documents"
+    ],
+    # 65. 批准
+    [
+        "v_pizhun", "批准", "pī zhǔn", "ㄆㄧ ㄓㄨㄣˇ", "Onaylamak", "To approve",
+        "年度預算已經獲得董事會全體通過並批准。",
+        3, "Medium", "Workplace", "✅",
+        "Aprobar", "Genehmigen", "Approuver", "Approvare", "承認する", "승인하다", "Aprovar", "मंजूरी देना",
+        "onayla", "approve",
+        "預算", "yù suàn", "ㄩˋ ㄙㄨㄢˋ", "💰", "Bütçe", "budget",
+        "老闆批准了假單", "lǎo bǎn pī zhǔn le jià dān", "ㄌㄠˇ ㄅㄢˇ ㄆㄧ ㄓㄨㄣˇ ˙ㄌㄜ ㄐㄧㄚˋ ㄉㄢ",
+        "Patron izin talebini onayladı", "The boss approved the leave request"
+    ],
+    # 66. 提交
+    [
+        "v_tijiao", "提交", "tí jiāo", "ㄊㄧˊ ㄐㄧㄠ", "Teslim etmek / Sunmak", "To submit",
+        "截止日期前，大家記得把期末專題報告提交上去。",
+        2, "Easy", "Workplace", "📤",
+        "Enviar / Presentar", "Einreichen", "Soumettre", "Inviare / Presentare", "提出する", "제출하다", "Submeter", "जमा करना",
+        "teslim et", "submit",
+        "報告", "bào gào", "ㄅㄠˋ ㄍㄠˋ", "📄", "Rapor", "report",
+        "我準時提交成果", "wǒ zhǔn shí tí jiāo chéng guǒ", "ㄨㄛˇ ㄓㄨㄣˇ ㄕˊ ㄊㄧˊ ㄐㄧㄠ ㄔㄥˊ ㄍㄨㄛˇ",
+        "Sonuçları zamanında teslim ediyorum", "I submit the results on time"
+    ],
+    # 67. 報告
+    [
+        "v_baogao", "報告", "bào gào", "ㄅㄠˋ ㄍㄠˋ", "Rapor etmek / Sunum yapmak", "To report / present",
+        "每週一上午例會，各部門主管要輪流報告進度。",
+        2, "Easy", "Workplace", "📊",
+        "Informar / Reportar", "Berichten", "Faire un rapport", "Riferire", "報告する", "보고하다", "Reportar", "रिपोर्ट करना",
+        "rapor et", "report",
+        "進度", "jìn dù", "ㄐㄧㄣˋ ㄉㄨˋ", "📈", "İlerleme durumu", "progress",
+        "向老闆報告進度", "xiàng lǎo bǎn bào gào jìn dù", "ㄒㄧㄤˋ ㄌㄠˇ ㄅㄢˇ ㄅㄠˋ ㄍㄠˋ ㄐㄧㄣˋ ㄉㄨˋ",
+        "Patrona ilerleme durumunu rapor etmek", "Report progress to the boss"
+    ],
+    # 68. 聯絡
+    [
+        "v_lianluo", "聯絡", "lián luò", "ㄌㄧㄢˊ ㄌㄨㄛˋ", "İletişime geçmek", "To contact",
+        "在台灣商務與朋友交流，大家最習慣用LINE聯絡。",
+        1, "Easy", "Daily Actions", "📞",
+        "Contactar", "Kontaktieren", "Contacter", "Contattare", "連絡する", "연락하다", "Contatar", "संपर्क करना",
+        "iletişime geç", "contact",
+        "客戶", "kè hù", "ㄎㄜˋ ㄏㄨˋ", "💼", "Müşteri", "client",
+        "請隨時和我聯絡", "qǐng suí shí hàn wǒ lián luò", "ㄑㄧㄥˇ ㄙㄨㄟˊ ㄕˊ ㄏㄢˋ ㄨㄛˇ ㄌㄧㄢˊ ㄌㄨㄛˋ",
+        "Lütfen benimle dilediğiniz zaman iletişime geçin", "Please contact me anytime"
+    ],
+    # 69. 溝通
+    [
+        "v_goutong", "溝通", "gōu tōng", "ㄍㄡ ㄊㄨㄥ", "İletişim kurmak", "To communicate",
+        "跨國團隊合作時，良好的跨文化溝通至關重要。",
+        2, "Easy", "Workplace", "💬",
+        "Comunicar", "Kommunizieren", "Communiquer", "Comunicare", "意思疎通する", "소통하다", "Comunicar", "संवाद करना",
+        "iletişim kur", "communicate",
+        "細節", "xì jié", "ㄒㄧˋ ㄐㄧㄝˊ", "🔍", "Detay", "details",
+        "雙方保持良好溝通", "shuāng fāng bǎo chí liáng hǎo gōu tōng", "ㄕㄨㄤ ㄈㄤ ㄅㄠˇ ㄔˊ ㄌㄧㄤˊ ㄏㄠˇ ㄍㄡ ㄊㄨㄥ",
+        "Her iki taraf iyi bir iletişim sürdürüyor", "Both sides maintain good communication"
+    ],
+    # 70. 合作
+    [
+        "v_hezuo", "合作", "hé zuò", "ㄏㄜˊ ㄗㄨㄛˋ", "İşbirliği yapmak", "To cooperate",
+        "台灣的半導體產業鏈與全球科技巨頭緊密合作。",
+        2, "Easy", "Workplace", "🤝",
+        "Cooperar", "Kooperieren", "Coopérer", "Cooperare", "協力する", "협력하다", "Cooperar", "सहयोग करना",
+        "işbirliği yap", "cooperate",
+        "夥伴", "huǒ bàn", "ㄏㄨㄛˇ ㄅㄢˋ", "👥", "Ortak", "partner",
+        "很高興與貴公司合作", "hěn gāo xìng yǔ guì gōng sī hé zuò", "ㄏㄣˇ ㄍㄠ ㄒㄧㄥˋ ㄩˇ ㄍㄨㄟˋ ㄍㄨㄥ ㄙ ㄏㄜˊ ㄗㄨㄛˋ",
+        "Şirketinizle işbirliği yapmaktan büyük memnuniyet duyuyoruz", "Very pleased to cooperate with your company"
+    ],
+    # 71. 談判
+    [
+        "v_tanpan", "談判", "tán pàn", "ㄊㄢˊ ㄆㄢˋ", "Müzakere etmek", "To negotiate",
+        "談判桌上要懂得兼顧雙方利益，達到雙贏。",
+        3, "Medium", "Workplace", "⚖️",
+        "Negociar", "Verhandeln", "Négocier", "Negoziare", "交渉する", "협상하다", "Negociar", "बातचीत करना",
+        "müzakere et", "negotiate",
+        "條件", "tiáo jiàn", "ㄊㄧㄠˊ ㄐㄧㄢˋ", "📑", "Şartlar", "terms",
+        "代表們正在談判條件", "dài biǎo men zhèng zài tán pàn tiáo jiàn", "ㄉㄞˋ ㄅㄧㄠˇ ˙ㄇㄣ ㄓㄥˋ ㄗㄞˋ ㄊㄢˊ ㄆㄢˋ ㄊㄧㄠˊ ㄐㄧㄢˋ",
+        "Temsilciler koşulları müzakere ediyor", "Representatives are negotiating terms"
+    ],
+    # 72. 投資
+    [
+        "v_touzi", "投資", "tóu zī", "ㄊㄡˊ ㄗ", "Yatırım yapmak", "To invest",
+        "很多人在台灣會投資高股息ETF或台積電股票。",
+        3, "Medium", "Economy & Finance", "📈",
+        "Invertir", "Investieren", "Investir", "Investire", "投資する", "투자하다", "Investir", "निवेश करना",
+        "yatırım yap", "invest",
+        "股票", "gǔ piào", "ㄍㄨˇ ㄆㄧㄠˋ", "📊", "Hisse senedi", "stocks",
+        "謹慎投資理財", "jǐn shèn tóu zī lǐ cái", "ㄐㄧㄣˇ ㄕㄣˋ ㄊㄡˊ ㄗ ㄌㄧˇ ㄘㄞˊ",
+        "Mali konularda dikkatli yatırım yapmak", "Invest carefully in wealth management"
+    ],
+    # 73. 採購
+    [
+        "v_caigou", "採購", "cǎi gòu", "ㄘㄞˇ ㄍㄡˋ", "Satın alma yapmak", "To procure / purchase",
+        "企業每季度都會集中採購辦公物資與設備。",
+        3, "Medium", "Workplace", "🛍️",
+        "Adquirir / Comprar", "Beschaffen / Einkaufen", "Approvisionner", "Acquistare", "調達する", "구매하다", "Adquirir", "खरीदना",
+        "satın alma yap", "procure",
+        "設備", "shè bèi", "ㄕㄜˋ ㄅㄟˋ", "🖥️", "Ekipman", "equipment",
+        "採購全新伺服器", "cǎi gòu quán xīn sì fú qì", "ㄘㄞˇ ㄍㄡˋ ㄑㄩㄢˊ ㄒㄧㄣ ㄙˋ ㄈㄨˊ ㄑㄧˋ",
+        "Yepyeni sunucular satın almak", "Procure brand new servers"
+    ],
+    # 74. 銷售
+    [
+        "v_xiaoshou", "銷售", "xiāo shòu", "ㄒㄧㄠ ㄕㄡˋ", "Satış yapmak", "To sell / market",
+        "台灣水果如果凍鳳梨和芒果在國際市場廣受歡迎。",
+        3, "Medium", "Economy & Finance", "🏷️",
+        "Vender", "Verkaufen", "Vendre", "Vendere", "販売する", "판매하다", "Vender", "बेचना",
+        "satış yap", "sell",
+        "產品", "chǎn pǐn", "ㄔㄢˇ ㄆㄧㄣˇ", "📦", "Ürün", "product",
+        "推動產品海外銷售", "tuī dòng chǎn pǐn hǎi wài xiāo shòu", "ㄊㄨㄟ ㄉㄨㄥˋ ㄔㄢˇ ㄆㄧㄣˇ ㄏㄞˇ ㄨㄞˋ ㄒㄧㄠ ㄕㄡˋ",
+        "Ürünlerin yurtdışı satışını teşvik etmek", "Promote overseas product sales"
+    ],
+    # 75. 推廣
+    [
+        "v_tuiguang", "推廣", "tuī guǎng", "ㄊㄨㄟ ㄍㄨㄤˇ", "Tanıtımını yapmak / Yaygınlaştırmak", "To promote",
+        "台灣近年來大力推廣再生能源與綠色交通。",
+        3, "Medium", "Society & Culture", "📢",
+        "Promocionar", "Fördern / Bekannt machen", "Promouvoir", "Promuovere", "普及させる", "보급하다", "Promover", "प्रचार करना",
+        "tanıt", "promote",
+        "文化", "wén huà", "ㄨㄣˊ ㄏㄨㄚˋ", "🏮", "Kültür", "culture",
+        "積極推廣台灣文化", "jī jí tuī guǎng tái wān wén huà", "ㄐㄧ ㄐㄧˊ ㄊㄨㄟ ㄍㄨㄤˇ ㄊㄞˊ ㄨㄢ ㄨㄣˊ ㄏㄨㄚˋ",
+        "Tayvan kültürünü aktif olarak tanıtmak", "Actively promote Taiwanese culture"
+    ],
+    # 76. 開發
+    [
+        "v_kaifa", "開發", "kāi fā", "ㄎㄞ ㄈㄚ", "Geliştirmek (yazılım/ürün)", "To develop",
+        "工程團隊正在開發全新版本的智慧型手機App。",
+        3, "Medium", "Technology", "💻",
+        "Desarrollar", "Entwickeln", "Développer", "Sviluppare", "開発する", "개발하다", "Desenvolver", "विकसित करना",
+        "geliştir", "develop",
+        "軟體", "ruǎn tǐ", "ㄖㄨㄢˇ ㄊㄧˇ", "💾", "Yazılım", "software",
+        "團隊開發新軟體", "tuán duì kāi fā xīn ruǎn tǐ", "ㄊㄨㄢˊ ㄉㄨㄟˋ ㄎㄞ ㄈㄚ ㄒㄧㄣ ㄖㄨㄢˇ ㄊㄧˇ",
+        "Ekip yeni yazılım geliştiriyor", "The team develops new software"
+    ],
+    # 77. 設計
+    [
+        "v_sheji", "設計", "shè jì", "ㄕㄜˋ ㄐㄧˋ", "Tasarlamak", "To design",
+        "台灣松山文創園區聚集了許多獨立設計師展示創意。",
+        2, "Easy", "Art & Creativity", "🎨",
+        "Diseñar", "Entwerfen / Designen", "Concevoir", "Progettare", "設計する", "디자인하다", "Projetar", "डिज़ाइन करना",
+        "tasarla", "design",
+        "海報", "hǎi bào", "ㄏㄞˇ ㄅㄠˋ", "🖼️", "Afiş", "poster",
+        "設計精美的使用者介面", "shè jì jīng měi de shǐ yòng zhě jiè miàn", "ㄕㄜˋ ㄐㄧˋ ㄐㄧㄥ ㄇㄟˇ ˙ㄉㄜ ㄕˇ ㄩㄥˋ ㄓㄜˇ ㄐㄧㄝˋ ㄇㄧㄢˋ",
+        "Zarif bir kullanıcı arayüzü tasarlamak", "Design an exquisite user interface"
+    ],
+    # 78. 測試
+    [
+        "v_ceshi", "測試", "cè shì", "ㄘㄜˋ ㄕˋ", "Test etmek", "To test",
+        "程式部署前必須經過嚴格的單元測試與整合測試。",
+        2, "Easy", "Technology", "🧪",
+        "Probar / Testear", "Testen", "Tester", "Testare", "テストする", "테스트하다", "Testar", "परीक्षण करना",
+        "test et", "test",
+        "系統", "xì tǒng", "ㄒㄧˋ ㄊㄨㄥˇ", "🖥️", "Sistem", "system",
+        "工程師測試系統功能", "gōng chéng shī cè shì xì tǒng gōng néng", "ㄍㄨㄥ ㄔㄥˊ ㄕ ㄘㄜˋ ㄕˋ ㄒㄧˋ ㄊㄨㄥˇ ㄍㄨㄥ ㄋㄥˊ",
+        "Mühendisler sistem işlevlerini test ediyor", "Engineers test system functionality"
+    ],
+    # 79. 部署
+    [
+        "v_bushu", "部署", "bù shǔ", "ㄅㄨˋ ㄕㄨˇ", "Dağıtmak / Deploy etmek", "To deploy",
+        "科技團隊使用雲端服務把應用程式部署到全球伺服器。",
+        3, "Medium", "Technology", "🚀",
+        "Desplegar", "Bereitstellen / Deployen", "Déployer", "Distribuire", "デプロイする", "배포하다", "Implantar", "तैनात करना",
+        "deploy et", "deploy",
+        "服務", "fú wù", "ㄈㄨˊ ㄨˋ", "☁️", "Hizmet / Servis", "service",
+        "順利部署雲端服務", "shùn lì bù shǔ yún duān fú wù", "ㄕㄨㄣˋ ㄌㄧˋ ㄅㄨˋ ㄕㄨˇ ㄩㄣˊ ㄉㄨㄢ ㄈㄨˊ ㄨˋ",
+        "Bulut servisini başarıyla deploy etmek", "Smoothly deploy cloud services"
+    ],
+    # 80. 維護
+    [
+        "v_weihu", "維護", "wéi hù", "ㄨㄟˊ ㄏㄨˋ", "Bakımını yapmak / Korumak", "To maintain",
+        "捷運系統每晚收班後都會派工程人員維護軌道。",
+        3, "Medium", "Workplace", "🔧",
+        "Mantener", "Warten / Pflegen", "Maintenir", "Manutenere", "保守する", "유지보수하다", "Manter", "रखरखाव करना",
+        "bakımını yap", "maintain",
+        "設備", "shè bèi", "ㄕㄜˋ ㄅㄟˋ", "⚙️", "Ekipman", "equipment",
+        "定期維護系統穩定", "dìng qí wéi hù xì tǒng wěn dìng", "ㄉㄧㄥˋ ㄑㄧˊ ㄨㄟˊ ㄏㄨˋ ㄒㄧˋ ㄊㄨㄥˇ ㄨㄣˇ ㄉㄧㄥˋ",
+        "Sistem kararlılığını düzenli olarak korumak", "Regularly maintain system stability"
+    ],
+    # 81. 更新
+    [
+        "v_gengxin", "更新", "gēng xīn", "ㄍㄥ ㄒㄧㄣ", "Güncellemek", "To update",
+        "手機系統定期更新可以修復漏洞並獲得最新功能。",
+        2, "Easy", "Technology", "🔄",
+        "Actualizar", "Aktualisieren", "Mettre à jour", "Aggiornare", "更新する", "업데이트하다", "Atualizar", "अपडेट करना",
+        "güncelle", "update",
+        "軟體", "ruǎn tǐ", "ㄖㄨㄢˇ ㄊㄧˇ", "📲", "Yazılım / Uygulama", "software",
+        "更新最新版本軟體", "gēng xīn zuì xīn bǎn běn ruǎn tǐ", "ㄍㄥ ㄒㄧㄣ ㄗㄨㄟˋ ㄒㄧㄣ ㄅㄢˇ ㄅㄣˇ ㄖㄨㄢˇ ㄊㄧˇ",
+        "Yazılımın en son sürümünü güncellemek", "Update software to the latest version"
+    ],
+    # 82. 下載
+    [
+        "v_xiazai", "下載", "xià zǎi", "ㄒㄧㄚˋ ㄗㄞˇ", "İndirmek (download)", "To download",
+        "在台灣下載各縣市的公車APP可以隨時查詢到站時間。",
+        1, "Easy", "Technology", "📥",
+        "Descargar", "Herunterladen", "Télécharger", "Scaricare", "ダウンロードする", "다운로드하다", "Baixar", "डाउनलोड करना",
+        "indir", "download",
+        "檔案", "dǎng àn", "ㄉㄤˇ ㄢˋ", "📁", "Dosya", "file",
+        "我從網路下載檔案", "wǒ cóng wǎng lù xià zǎi dǎng àn", "ㄨㄛˇ ㄘㄨㄥˊ ㄨㄤˇ ㄌㄨˋ ㄒㄧㄚˋ ㄗㄞˇ ㄉㄤˇ ㄢˋ",
+        "İnternetten dosya indiriyorum", "I download files from the internet"
+    ],
+    # 83. 上傳
+    [
+        "v_shangchuan", "上傳", "shàng chuán", "ㄕㄤˋ ㄔㄨㄢˊ", "Yüklemek (upload)", "To upload",
+        "把旅行拍的照片上傳到雲端相簿保存非常方便。",
+        1, "Easy", "Technology", "📤",
+        "Subir / Cargar", "Hochladen", "Téléverser", "Caricare", "アップロードする", "업로드하다", "Fazer upload", "अपलोड करना",
+        "yükle", "upload",
+        "照片", "zhào piàn", "ㄓㄠˋ ㄆㄧㄢˋ", "🖼️", "Fotoğraf", "photo",
+        "把照片上傳到雲端", "bǎ zhào piàn shàng chuán dào yún duān", "ㄅㄚˇ ㄓㄠˋ ㄆㄧㄢˋ ㄕㄤˋ ㄔㄨㄢˊ ㄉㄠˋ ㄩㄣˊ ㄉㄨㄢ",
+        "Fotoğrafları buluta yüklemek", "Upload photos to the cloud"
+    ],
+    # 84. 搜尋
+    [
+        "v_souxun", "搜尋", "sōu xún", "ㄙㄡ ㄒㄩㄣˊ", "Arama yapmak (search)", "To search",
+        "想吃什麼美食，可以在Google Maps上搜尋高評價餐廳。",
+        1, "Easy", "Technology", "🔍",
+        "Buscar", "Suchen", "Rechercher", "Cercare", "検索する", "검색하다", "Pesquisar", "खोजना",
+        "arama yap", "search",
+        "資訊", "zī xùn", "ㄗ ㄒㄩㄣˋ", "🌐", "Bilgi", "information",
+        "在網路上搜尋資訊", "zài wǎng lù shàng sōu xún zī xùn", "ㄗㄞˋ ㄨㄤˇ ㄌㄨˋ ㄕㄤˋ ㄙㄡ ㄒㄩㄣˊ ㄗ ㄒㄩㄣˋ",
+        "İnternette bilgi aramak", "Search for information on the internet"
+    ],
+    # 85. 瀏覽
+    [
+        "v_liulan", "瀏覽", "liú lǎn", "ㄌㄧㄡˊ ㄌㄢˇ", "Göz atmak / İnternette gezinmek", "To browse",
+        "睡前瀏覽一下社群新聞，了解今天發生的時事。",
+        2, "Easy", "Technology", "🌐",
+        "Navegar / Ojear", "Durchstöbern / Browsen", "Parcourir", "Navigare / Sfogliare", "閲覧する", "둘러보다", "Navegar", "ब्राउज़ करना",
+        "göz at", "browse",
+        "網頁", "wǎng yè", "ㄨㄤˇ ㄧㄝˋ", "💻", "Web sayfası", "webpage",
+        "他喜歡瀏覽社群網頁", "tā xǐ huān liú lǎn shè qún wǎng yè", "ㄊㄚ ㄒㄧˇ ㄏㄨㄢ ㄌㄧㄡˊ ㄌㄢˇ ㄕㄜˋ ㄑㄩㄣˊ ㄨㄤˇ ㄧㄝˋ",
+        "O sosyal medya web sayfalarına göz atmayı seviyor", "He likes browsing social media web pages"
+    ]
+]
+
+print(f"Total verbs in part 3: {len(data)}")
+assert len(data) == 85, f"Expected 85, got {len(data)}"
+for i, item in enumerate(data):
+    assert len(item) == 32, f"Item {i} ({item[0]}) has len {len(item)} != 32"
+
+with open('/Users/tarikozluk/Desktop/Dictionary-IAC/data_builder_vs/v_part3.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+print("Saved v_part3.json successfully!")

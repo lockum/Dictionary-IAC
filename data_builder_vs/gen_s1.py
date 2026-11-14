@@ -1,0 +1,102 @@
+import json
+from sentence_helpers import build_sentence_item
+
+sentences_raw = [
+    # 1
+    (
+        "s_tw_001", 1, "Easy", 1, "Day 1",
+        "我要一杯珍珠奶茶，微糖微冰。",
+        "Wǒ yào yì bēi zhēn zhū nǎi chá, wéi táng wéi bīng.",
+        "ㄨㄛˇ ㄧㄠˋ ㄧˋ ㄅㄟ ㄓㄣ ㄓㄨ ㄋㄞˇ ㄔㄚˊ，ㄨㄟˊ ㄊㄤˊ ㄨㄟˊ ㄅㄧㄥ。",
+        "Ben bir bardak boba çayı istiyorum, az şekerli ve az buzlu.",
+        "I want a cup of pearl milk tea, low sugar and light ice.",
+        "Quiero un té con leche y perlas, poco azúcar y poco hielo.",
+        "Ich möchte einen Milchtee mit Perlen, wenig Zucker und wenig Eis.",
+        "Je voudrais un thé au lait aux perles, peu sucré et peu de glaçons.",
+        "Vorrei un bubble tea, poco zucchero e poco ghiaccio.",
+        "タピオカミルクティーを一杯、微糖微氷でお願いします。",
+        "버블티 한 잔 주세요, 덜 달게 얼음 적게요.",
+        "Eu quero um bubble tea, com pouco açúcar e pouco gelo.",
+        "मुझे एक कप बबल टी चाहिए, कम चीनी और कम बर्फ के साथ।",
+        "In Taiwan boba shops, customizing sugar (微糖 wéi táng = 30%) and ice (微冰 wéi bīng) is universal and expected.",
+        ["我", "要", "一杯", "珍珠奶茶", "，", ("微糖", "wéi táng", "ㄨㄟˊ ㄊㄤˊ", "Az şeker", "low sugar", "poco azúcar", "wenig Zucker", "peu sucré", "poco zucchero", "微糖", "덜 달게", "pouco açúcar", "कम चीनी"), ("微冰", "wéi bīng", "ㄨㄟˊ ㄅㄧㄥ", "Az buz", "light ice", "poco hielo", "wenig Eis", "peu de glace", "poco ghiaccio", "微氷", "얼음 적게", "pouco gelo", "कम बर्फ"), "。"]
+    ),
+    # 2
+    (
+        "s_tw_002", 1, "Easy", 2, "Day 2",
+        "老闆，請問這個小吃可以外帶嗎？",
+        "Lǎo bǎn, qǐng wèn zhè ge xiǎo chī kě yǐ wài dài ma?",
+        "ㄌㄠˇ ㄅㄢˇ，ㄑㄧㄥˇ ㄨㄣˋ ㄓㄜˋ ˙ㄍㄜ ㄒㄧㄠˇ ㄔ ㄎㄜˇ ㄧˇ ㄨㄞˋ ㄉㄞˋ ˙ㄇㄚ？",
+        "Patron, afedersiniz bu atıştırmalık paket yaptırılabilir mi?",
+        "Boss, excuse me, can this snack be ordered for takeout?",
+        "Jefe, disculpe, ¿este tentempié se puede pedir para llevar?",
+        "Chef, Verzeihung, kann man diesen Snack zum Mitnehmen bestellen?",
+        "Patron, excusez-moi, ce snack peut-il être commandé à emporter ?",
+        "Capo, scusi, questo snack si può avere da asporto?",
+        "店主さん、すみません、この軽食はテイクアウトできますか？",
+        "사장님, 실례지만 이 간식 포장 되나요?",
+        "Chefe, com licença, este lanche pode ser para viagem?",
+        "मालिक, सुनिए, क्या यह स्नैक पैक कराया जा सकता है?",
+        "Addressing vendor owners as 老闆 (lǎo bǎn) is standard polite street etiquette in Taiwan. 外帶 (wài dài) means takeout.",
+        [("老闆", "lǎo bǎn", "ㄌㄠˇ ㄅㄢˇ", "Patron", "boss / shopkeeper", "jefe / dueño", "Chef / Inhaber", "patron", "capo / proprietario", "店主 / マスター", "사장님", "chefe / dono", "मालिक / दुकानदार"), "，", "請問", ("這個", "zhè ge", "ㄓㄜˋ ˙ㄍㄜ", "Bu", "this", "esto", "dieses", "ceci", "questo", "これ", "이것", "este", "यह"), "小吃", "可以", "外帶", "嗎", "？"]
+    ),
+    # 3
+    (
+        "s_tw_003", 1, "Easy", 3, "Day 3",
+        "這碗牛肉麵加湯不用錢，味道非常香。",
+        "Zhè wǎn niú ròu miàn jiā tāng bú yòng qián, wèi dào fēi cháng xiāng.",
+        "ㄓㄜˋ ㄨㄢˇ ㄋㄧㄡˊ ㄖㄡˋ ㄇㄧㄢˋ ㄐㄧㄚ ㄊㄤ ㄅㄨˊ ㄩㄥˋ ㄑㄧㄢˊ，ㄨㄟˋ ㄉㄠˋ ㄈㄟ ㄔㄤˊ ㄒㄧㄤ。",
+        "Bu kase dana erişteli çorbaya çorba ekletmek ücretsizdir, kokusu çok lezzetlidir.",
+        "Adding soup to this bowl of beef noodles is free, and the taste is very aromatic.",
+        "Añadir caldo a este tazón de fideos con carne es gratis, y sabe muy sabroso.",
+        "Mehr Suppe zu dieser Schüssel Rindfleischnudeln ist kostenlos und sehr aromatisch.",
+        "Ajouter du bouillon à ce bol de nouilles au bœuf est gratuit, et le goût est très savoureux.",
+        "Aggiungere brodo a questa ciotola di tagliolini di manzo è gratis, ed è profumatissimo.",
+        "この牛肉麺はスープのおかわりが無料で、とても香ばしいです。",
+        "이 우육면은 국물 리필이 무료이고, 풍미가 아주 좋습니다.",
+        "Adicionar caldo a esta tigela de macarrão com carne é grátis e o aroma é incrível.",
+        "इस बीफ नूडल्स के कटोरे में सूप दोबारा डलवाना मुफ्त है, और स्वाद बहुत सुगंधित है।",
+        "Many traditional Taiwanese beef noodle shops offer free soup refills (加湯不用錢 jiā tāng bú yòng qián) and pickled mustard greens.",
+        ["這", "一碗", "牛肉麵", ("加湯", "jiā tāng", "ㄐㄧㄚ ㄊㄤ", "Çorba ekletmek", "add soup broth", "añadir caldo", "Suppe nachfüllen", "rajouter du bouillon", "aggiungere brodo", "スープを足す", "국물 추가", "adicionar caldo", "सूप जोड़ना"), ("不用錢", "bú yòng qián", "ㄅㄨˊ ㄩㄥˋ ㄑㄧㄢˊ", "Bedava / para gerekmez", "free / no charge", "gratis / sin costo", "kostenlos", "gratuit", "gratis", "無料 / お金不要", "무료 / 돈 안 듦", "grátis", "मुफ्त"), "，", ("味道", "wèi dào", "ㄨㄟˋ ㄉㄠˋ", "Lezzet / Tat", "flavor / taste", "sabor", "Geschmack", "saveur / goût", "sapore", "味 / 風味", "맛 / 풍미", "sabor", "स्वाद"), "非常", ("香", "xiāng", "ㄒㄧㄤ", "Güzel kokulu / Leziz", "aromatic / fragrant", "aromático / sabroso", "aromatisch", "savoureux / parfumé", "profumato", "香ばしい / 美味しい", "향긋하다 / 맛있다", "cheiroso / saboroso", "सुगंधित"), "。"]
+    ),
+    # 4
+    (
+        "s_tw_004", 1, "Easy", 4, "Day 4",
+        "我們今天晚上一起去士林夜市逛街吃小吃吧！",
+        "Wǒ men jīn tiān wǎn shang yì qǐ qù shì lín yè shì guàng jiē chī xiǎo chī ba!",
+        "ㄨㄛˇ ㄇㄣ˙ ㄐㄧㄣ ㄊㄧㄢ ㄨㄢˇ ㄕㄤ˙ ㄧˋ ㄑㄧˇ ㄑㄩˋ ㄕˋ ㄌㄧㄣˊ ㄧㄝˋ ㄕˋ ㄍㄨㄤˋ ㄐㄧㄝ ㄔ ㄒㄧㄠˇ ㄔ ˙ㄅㄚ！",
+        "Biz bu akşam birlikte Shilin Gece Pazarı'na gidip gezelim ve sokak lezzetleri yiyelim!",
+        "Let's go to Shilin Night Market together tonight to stroll and eat street food!",
+        "¡Vamos juntos al mercado nocturno de Shilin esta noche a pasear y comer antojitos!",
+        "Lass uns heute Abend zusammen zum Shilin-Nachtmarkt gehen, bummeln und Streetfood essen!",
+        "Allons ensemble au marché de nuit de Shilin ce soir pour nous promener et manger de la street food !",
+        "Andiamo insieme al mercato notturno di Shilin stasera a passeggiare e mangiare street food!",
+        "今夜一緒に士林夜市へ行って散策しながら屋台グルメを食べよう！",
+        "오늘 밤 우리 다 같이 스린 야시장에 가서 구경하고 길거리 음식 먹자!",
+        "Vamos juntos ao mercado noturno de Shilin hoje à noite passear e comer petiscos!",
+        "चलो आज रात हम सब मिलकर शिलिन नाइट मार्केट घूमें और स्ट्रीट फूड खाएं!",
+        "逛街 (guàng jiē) combined with 夜市 (yè shì) is Taiwan's most classic evening leisure culture.",
+        ["我們", "今天", ("晚上", "wǎn shang", "ㄨㄢˇ ㄕㄤ˙", "Akşam", "evening", "noche", "Abend", "soir", "sera", "夜 / 晩", "저녁", "noite", "शाम"), "一起", "去", ("士林夜市", "shì lín yè shì", "ㄕˋ ㄌㄧㄣˊ ㄧㄝˋ ㄕˋ", "Shilin Gece Pazarı", "Shilin Night Market", "Mercado nocturno de Shilin", "Shilin-Nachtmarkt", "Marché de nuit de Shilin", "Mercato notturno di Shilin", "士林夜市", "스린 야시장", "Mercado Noturno de Shilin", "शिलिन नाइट मार्केट"), "逛", "吃", "小吃", "吧", "！"]
+    ),
+    # 5
+    (
+        "s_tw_005", 1, "Easy", 5, "Day 5",
+        "這份臭豆腐炸得很酥脆，配泡菜超好吃。",
+        "Zhè fèn chòu dòu fu zhà de hěn sū cuì, pèi pào cài chāo hǎo chī.",
+        "ㄓㄜˋ ㄈㄣˋ ㄔㄡˋ ㄉㄡˋ ㄈㄨ˙ ㄓㄚˋ ˙ㄉㄜ ㄏㄣˇ ㄙㄨ ㄘㄨㄟˋ，ㄆㄟˋ ㄆㄠˋ ㄘㄞˋ ㄔㄠ ㄏㄠˇ ㄔ。",
+        "Bu porsiyon kokuşmuş tofu çok çıtır kızartılmış, turşuyla birlikte aşırı lezzetli.",
+        "This portion of stinky tofu is fried crispy, and pairing it with Taiwanese kimchi is super delicious.",
+        "Esta porción de tofu apestoso está muy crujiente, y acompañada de kimchi taiwanés está riquísima.",
+        "Dieser Stinkende Tofu ist knusprig frittiert und mit eingelegtem Kohl super lecker.",
+        "Cette portion de tofu puant est très croustillante, et avec le chou mariné c'est super bon.",
+        "Questa porzione di stinky tofu è fritta ben croccante, con i crauti taiwanesi è buonissima.",
+        "この臭豆腐はサクサクに揚がっていて、台湾風キムチと一緒に食べると超美味しいです。",
+        "이 취두부는 바삭하게 튀겨져서 양배추 김치와 곁들여 먹으면 정말 맛있어요.",
+        "Esta porção de tofu fedorento é frita bem crocante, e com conserva taiwanesa fica super gostosa.",
+        "यह स्टिंकी टोफू बहुत कुरकुरा तला हुआ है, और ताइवानी किमची के साथ बहुत स्वादिष्ट लगता है।",
+        "Taiwanese fried stinky tofu (臭豆腐) is famously served with sweet-and-sour pickled cabbage (台式泡菜).",
+        ["這", "一份", ("臭豆腐", "chòu dòu fu", "ㄔㄡˋ ㄉㄡˋ ㄈㄨ˙", "Kokuşmuş tofu", "stinky tofu", "tofu apestoso", "Stinkender Tofu", "tofu puant", "stinky tofu", "臭豆腐", "취두부", "tofu fedorento", "स्टिंकी टोफू"), ("炸", "zhà", "ㄓㄚˋ", "Kızartmak", "deep-fry", "freír", "frittieren", "frire", "friggere", "揚げる", "튀기다", "fritar", "तलना"), "的", "很", ("酥脆", "sū cuì", "ㄙㄨ ㄘㄨㄟˋ", "Çıtır çıtır", "crispy", "crujiente", "knusprig", "croustillant", "croccante", "サクサク", "바삭바삭하다", "crocante", "कुरकुरा"), "，", ("配", "pèi", "ㄆㄟˋ", "Birlikte tüketmek / eşleştirmek", "pair with", "acompañar con", "kombinieren mit", "accompagner de", "abbinare con", "合わせる", "곁들이다", "combinar com", "साथ में लेना"), ("泡菜", "pào cài", "ㄆㄠˋ ㄘㄞˋ", "Turşu (Tayvan lahana turşusu)", "pickled cabbage / kimchi", "repollo encurtido / kimchi", "eingelegter Kohl", "chou mariné / kimchi", "cavolo marinato", "台湾風キムチ / 漬物", "양배추 피클 / 김치", "conserva / picles", "अचार / किमची"), ("超", "chāo", "ㄔㄠ", "Aşırı / Süper", "super", "súper", "super", "super", "super", "超", "완전 / 초", "super", "अति"), ("好吃", "hǎo chī", "ㄏㄠˇ ㄔ", "Lezzetli", "delicious", "delicioso", "lecker", "délicieux", "delizioso", "美味しい", "맛있다", "gostoso / delicioso", "स्वादिष्ट"), "。"]
+    )
+]
+
+print(f"gen_s1 loaded {len(sentences_raw)} demo sentences")
